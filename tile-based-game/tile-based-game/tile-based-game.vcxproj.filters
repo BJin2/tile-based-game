@@ -36,6 +36,9 @@
     <ClCompile Include="..\..\Source\Debug\Debug.cpp">
       <Filter>Source Files\Debug</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Source\Event\EventHandler.cpp">
+      <Filter>Source Files\Event</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Source\Application.h">
@@ -58,6 +61,9 @@
     </ClInclude>
     <ClInclude Include="..\..\Source\Debug\Debug.h">
       <Filter>Source Files\Debug</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Event\EventHandler.h">
+      <Filter>Source Files\Event</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

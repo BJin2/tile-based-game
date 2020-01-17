@@ -153,12 +153,14 @@
   <ItemGroup>
     <ClCompile Include="..\..\Source\Application.cpp" />
     <ClCompile Include="..\..\Source\Debug\Debug.cpp" />
+    <ClCompile Include="..\..\Source\Event\EventHandler.cpp" />
     <ClCompile Include="..\..\Source\Input\RawInput.cpp" />
     <ClCompile Include="..\..\Source\main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Source\Application.h" />
     <ClInclude Include="..\..\Source\Debug\Debug.h" />
+    <ClInclude Include="..\..\Source\Event\EventHandler.h" />
     <ClInclude Include="..\..\Source\Event\InputEvent.h" />
     <ClInclude Include="..\..\Source\Event\KeyCode.h" />
     <ClInclude Include="..\..\Source\Event\KeyEvent.h" />
