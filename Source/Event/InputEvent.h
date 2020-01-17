@@ -17,8 +17,17 @@ public:
 class InputEvent
 {
 private :
-	InputEventData _inputEventData;
+	InputEventData m_inputEventData;
 
 public :
 	virtual ~InputEvent() {}
+	inline EventType GetEventType()	const { return m_inputEventData.eventType; }
+	inline HWND GetSource()			const { return m_inputEventData.hWnd; }
+	inline KeyCode GetKeyCode()		const { return m_inputEventData.mainKey; }
+	inline bool isAltDown()			const { return m_inputEventData.alt; }
+	inline bool isShiftDown()			const { return m_inputEventData.shift; }
+	inline bool isCtrlDown()			const { return m_inputEventData.ctrl; }
+	inline bool wasDown()				const { return m_inputEventData.wasDown; }
+
+	inline void SetData(InputEventData ie) { m_inputEventData = ie; }
 };
