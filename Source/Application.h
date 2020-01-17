@@ -14,4 +14,6 @@ public:
 	bool InitializeWindow();
 	static LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);
 	WPARAM Run();
+
+	HWND GetHWND() {return hWnd;}
 };
