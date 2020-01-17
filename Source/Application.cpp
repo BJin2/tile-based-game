@@ -1,5 +1,6 @@
 #include "Application.h"
 #include "Input/RawInput.h"
+#include "Debug/Debug.h"
 
 Application::Application(HINSTANCE _hInstance)
 {
@@ -7,6 +8,7 @@ Application::Application(HINSTANCE _hInstance)
 	hWnd = 0;
 	className = TEXT("");
 	msg = MSG();
+	Debug::Init();
 }
 
 bool Application::InitializeWindow()
@@ -28,6 +30,8 @@ bool Application::InitializeWindow()
 	//Register windows class
 	if (!RegisterClass(&wc))
 		return false;
+
+	Debug::Log("Initialized window");
 	return true;
 }
 
@@ -45,6 +49,7 @@ bool Application::CreateAppWindow(LPCWSTR title, int x, int y, int width, int he
 	ShowWindow(this->hWnd, SW_SHOW);
 	UpdateWindow(this->hWnd);
 
+	Debug::Log("Created window");
 	return true;
 }
 
