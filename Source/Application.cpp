@@ -4,6 +4,8 @@ Application::Application(HINSTANCE _hInstance)
 {
 	hInstance = _hInstance;
 	hWnd = 0;
+	className = TEXT("");
+	msg = MSG();
 }
 
 bool Application::InitializeWindow()
@@ -45,6 +47,17 @@ bool Application::CreateAppWindow(LPCWSTR title, int x, int y, int width, int he
 	return true;
 }
 
+WPARAM Application::Run()
+{
+	while (GetMessage(&msg, NULL, 0, 0))
+	{
+		TranslateMessage(&msg);
+		DispatchMessage(&msg);
+	}
+
+	return msg.wParam;
+}
+
 LRESULT Application::WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {
 	switch (msg)
@@ -56,15 +69,4 @@ LRESULT Application::WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 		return DefWindowProc(hWnd, msg, wParam, lParam);
 	}
 	return 0;
-}
-
-WPARAM Application::Run()
-{
-	while (GetMessage(&msg, NULL, 0, 0))
-	{
-		TranslateMessage(&msg);
-		DispatchMessage(&msg);
-	}
-
-	return msg.wParam;
 }

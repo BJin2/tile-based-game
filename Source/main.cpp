@@ -7,7 +7,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpszCmd
 
 	Application app(hInstance);
 
-	if (!app.CreateAppWindow(TEXT("tilegame"), 0, 0, 256, 256))
+	if (!app.CreateAppWindow(TEXT("tilegame"), CW_USEDEFAULT, CW_USEDEFAULT, 256, 256))
 	{
 		MessageBox(app.GetHWND(), TEXT("Creating window failed"), TEXT("Window Error"), 0);
 		return -1;

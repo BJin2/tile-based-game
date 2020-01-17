@@ -13,8 +13,8 @@ public:
 	Application(HINSTANCE);
 	bool InitializeWindow();
 	bool CreateAppWindow(LPCWSTR title, int x, int y, int width, int height);
-	static LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);
 	WPARAM Run();
+	static LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);
 
 	HWND GetHWND() {return hWnd;}
 };
