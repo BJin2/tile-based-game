@@ -16,6 +16,9 @@
     <Filter Include="Source Files\Event">
       <UniqueIdentifier>{d82c04f5-2ea9-4662-a6c8-aa78194cf76d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\InputHandler">
+      <UniqueIdentifier>{eebb75f9-e014-43b4-aec2-3d9a4f1c0b1e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\Source\main.cpp">
@@ -28,15 +31,6 @@
   <ItemGroup>
     <ClInclude Include="..\..\Source\Application.h">
       <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="KeyCode.h">
-      <Filter>Source Files\Event</Filter>
-    </ClInclude>
-    <ClInclude Include="InputEvent.h">
-      <Filter>Source Files\Event</Filter>
-    </ClInclude>
-    <ClInclude Include="KeyEvent.h">
-      <Filter>Source Files\Event</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
