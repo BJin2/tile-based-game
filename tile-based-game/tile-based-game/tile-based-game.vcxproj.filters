@@ -19,6 +19,9 @@
     <Filter Include="Source Files\InputHandler">
       <UniqueIdentifier>{eebb75f9-e014-43b4-aec2-3d9a4f1c0b1e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Debug">
+      <UniqueIdentifier>{25123888-6e58-44b4-8dca-db15ce2981e2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\Source\main.cpp">
@@ -29,6 +32,9 @@
     </ClCompile>
     <ClCompile Include="..\..\Source\Input\RawInput.cpp">
       <Filter>Source Files\InputHandler</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Debug\Debug.cpp">
+      <Filter>Source Files\Debug</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -49,6 +55,9 @@
     </ClInclude>
     <ClInclude Include="..\..\Source\Input\RawInput.h">
       <Filter>Source Files\InputHandler</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Debug\Debug.h">
+      <Filter>Source Files\Debug</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
