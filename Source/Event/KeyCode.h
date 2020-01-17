@@ -1,7 +1,7 @@
 #pragma once
 enum class EventType: __int8 {NO_TYPE, KeyEvent, MouseEvent};
 enum class KeyCode : __int8 {
-	NO_CODE, A, B, C, D, E, F, G, H, I, J, K, L, M, O, P, Q, R, S, T, U, V, W, X, Y, Z,
+	NO_CODE, A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z,
 	Mouse_0, Mouse_1, Mouse_2,
 	Num_0, Num_1, Num_2, Num_3, Num_4, Num_5, Num_6, Num_7, Num_8, Num_9,
 	Numpad_0, Numpad_1, Numpad_2, Numpad_3, Numpad_4, Numpad_5, Numpad_6, Numpad_7, Numpad_8, Numpad_9,
