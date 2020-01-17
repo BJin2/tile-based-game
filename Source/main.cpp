@@ -1,27 +1,11 @@
 #include "Application.h"
-#include <iostream>
-#include "Event/InputEvent.h"
 #include "Event/KeyEvent.h"
-#include "Event/MouseEvent.h"
-#include "Event/EventHandler.h"
+#include "Scene.h"
 
 LPCWSTR title = TEXT("tile-game");
 
 #ifdef _DEBUG
 #include "Debug/Debug.h"
-
-class Scene
-{
-public:
-	EventHandler<MouseEvent>* onMousePressed;
-	void SetOnMousePressed(EventHandler<MouseEvent>* me)
-	{
-		onMousePressed = me;
-	}
-};
-
-
-
 int main()
 {
 	AllocConsole();
@@ -33,33 +17,15 @@ int main()
 		MessageBox(app.GetHWND(), TEXT("Creating window failed"), TEXT("Window Error"), 0);
 		return -1;
 	}
-
-	struct A : EventHandler<KeyEvent>
-	{
-		void handle(KeyEvent* e) override
-		{
-			Debug::Log("Custom EventHandler<KeyEvent>");
-		}
-	}_A;
-	KeyEvent ke;
-	_A.handle(&ke);
-
-	
-
+	//register scene
 	Scene scene1;
-	scene1.SetOnMousePressed([]()->EventHandler<MouseEvent>*
+	scene1.SetOnKeyPressed([](const KeyEvent* e)->void
 	{
-		struct B : EventHandler<MouseEvent>
-		{
-			void handle(MouseEvent* e) override
-			{
-				Debug::Log("Custom EventHandler From ANONYMOUS FUNCTION Lambda<MouseEvent>");
-			}
-		};
-		return new B;
-	}());
-	MouseEvent me;
-	scene1.onMousePressed->handle(&me);
+			std::cout << "Window1.onKEYpressed" << std::endl;
+			std::cout << "Key Pressed : " << Debug::KeyCodeToString(e->GetKeyCode());
+	});
+
+	app.SetScene(scene1);
 
 	return static_cast<int>(app.Run());
 }

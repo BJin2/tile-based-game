@@ -63,3 +63,9 @@ WPARAM Application::Run()
 
 	return msg.wParam;
 }
+
+void Application::SetScene(Scene scene)
+{
+	m_scene = scene;
+	m_scene.SetHwnd(hWnd);
+}
