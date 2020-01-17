@@ -34,7 +34,7 @@ LRESULT RawInput::WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 	case WM_LBUTTONDOWN:
 		SetInputData(_data, hWnd, wParam, lParam);
 		SetMouseData(_mData, hWnd, wParam, lParam);
-		_mData.mouseButtonCode = KeyCode::Mouse_0;
+		_mData.mouseButtonCode = KeyCode::Mouse0;
 		_data.eventType = EventType::MouseEvent;
 		Debug::Log(_mData);
 		Debug::Log(_data);

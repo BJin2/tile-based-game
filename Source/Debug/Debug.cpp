@@ -1,5 +1,5 @@
 #include "Debug.h"
-
+std::unordered_map<KeyCode, std::string> Debug::_enumStringMap;
 void Debug::Init()
 {
 	static bool initialized = false;
@@ -8,10 +8,22 @@ void Debug::Init()
 	initialized = true;
 
 	_enumStringMap.insert(std::make_pair(KeyCode::NO_CODE, "NO_CODE"));
+	_enumStringMap.insert(std::make_pair(KeyCode::Mouse0, "Mouse0"));
+	_enumStringMap.insert(std::make_pair(KeyCode::Mouse1, "Mouse1"));
+	_enumStringMap.insert(std::make_pair(KeyCode::Mouse2, "Mouse2"));
 
-	_enumStringMap.insert(std::make_pair(KeyCode::Mouse_0, "Mouse 0"));
-	_enumStringMap.insert(std::make_pair(KeyCode::Mouse_1, "Mouse 1"));
-	_enumStringMap.insert(std::make_pair(KeyCode::Mouse_2, "Mouse 2"));
+	_enumStringMap.insert(std::make_pair(KeyCode::Backspace, "Backspace"));
+	_enumStringMap.insert(std::make_pair(KeyCode::Delete, "Delete"));
+	_enumStringMap.insert(std::make_pair(KeyCode::Tab, "Tab"));
+	_enumStringMap.insert(std::make_pair(KeyCode::Return, "Return"));
+
+	_enumStringMap.insert(std::make_pair(KeyCode::Pause, "Pause"));
+	_enumStringMap.insert(std::make_pair(KeyCode::Escape, "Escape"));
+	_enumStringMap.insert(std::make_pair(KeyCode::Space, "Space"));
+
+	_enumStringMap.insert(std::make_pair(KeyCode::CapsLock, "CapsLock"));
+	_enumStringMap.insert(std::make_pair(KeyCode::Shift, "Shift"));
+	_enumStringMap.insert(std::make_pair(KeyCode::Ctrl, "Ctrl"));
 
 	_enumStringMap.insert(std::make_pair(KeyCode::A, "A"));
 	_enumStringMap.insert(std::make_pair(KeyCode::B, "B"));
@@ -40,28 +52,27 @@ void Debug::Init()
 	_enumStringMap.insert(std::make_pair(KeyCode::Y, "Y"));
 	_enumStringMap.insert(std::make_pair(KeyCode::Z, "Z"));
 
-	_enumStringMap.insert(std::make_pair(KeyCode::Num_0, "Num 0"));
-	_enumStringMap.insert(std::make_pair(KeyCode::Num_1, "Num 1"));
-	_enumStringMap.insert(std::make_pair(KeyCode::Num_2, "Num 2"));
-	_enumStringMap.insert(std::make_pair(KeyCode::Num_3, "Num 3"));
-	_enumStringMap.insert(std::make_pair(KeyCode::Num_4, "Num 4"));
-	_enumStringMap.insert(std::make_pair(KeyCode::Num_5, "Num 5"));
-	_enumStringMap.insert(std::make_pair(KeyCode::Num_6, "Num 6"));
-	_enumStringMap.insert(std::make_pair(KeyCode::Num_7, "Num 7"));
-	_enumStringMap.insert(std::make_pair(KeyCode::Num_8, "Num 8"));
-	_enumStringMap.insert(std::make_pair(KeyCode::Num_9, "Num 9"));
+	_enumStringMap.insert(std::make_pair(KeyCode::Keypad0, "Keypad0"));
+	_enumStringMap.insert(std::make_pair(KeyCode::Keypad1, "Keypad1"));
+	_enumStringMap.insert(std::make_pair(KeyCode::Keypad2, "Keypad2"));
+	_enumStringMap.insert(std::make_pair(KeyCode::Keypad3, "Keypad3"));
+	_enumStringMap.insert(std::make_pair(KeyCode::Keypad4, "Keypad4"));
+	_enumStringMap.insert(std::make_pair(KeyCode::Keypad5, "Keypad5"));
+	_enumStringMap.insert(std::make_pair(KeyCode::Keypad6, "Keypad6"));
+	_enumStringMap.insert(std::make_pair(KeyCode::Keypad7, "Keypad7"));
+	_enumStringMap.insert(std::make_pair(KeyCode::Keypad8, "Keypad8"));
+	_enumStringMap.insert(std::make_pair(KeyCode::Keypad9, "Keypad9"));
 
-	_enumStringMap.insert(std::make_pair(KeyCode::Numpad_0, "Numpad 0"));
-	_enumStringMap.insert(std::make_pair(KeyCode::Numpad_1, "Numpad 1"));
-	_enumStringMap.insert(std::make_pair(KeyCode::Numpad_2, "Numpad 2"));
-	_enumStringMap.insert(std::make_pair(KeyCode::Numpad_3, "Numpad 3"));
-	_enumStringMap.insert(std::make_pair(KeyCode::Numpad_4, "Numpad 4"));
-	_enumStringMap.insert(std::make_pair(KeyCode::Numpad_5, "Numpad 5"));
-	_enumStringMap.insert(std::make_pair(KeyCode::Numpad_6, "Numpad 6"));
-	_enumStringMap.insert(std::make_pair(KeyCode::Numpad_7, "Numpad 7"));
-	_enumStringMap.insert(std::make_pair(KeyCode::Numpad_8, "Numpad 8"));
-	_enumStringMap.insert(std::make_pair(KeyCode::Numpad_9, "Numpad 9"));
-
+	_enumStringMap.insert(std::make_pair(KeyCode::Alpha0, "Alpha0"));
+	_enumStringMap.insert(std::make_pair(KeyCode::Alpha1, "Alpha1"));
+	_enumStringMap.insert(std::make_pair(KeyCode::Alpha2, "Alpha2"));
+	_enumStringMap.insert(std::make_pair(KeyCode::Alpha3, "Alpha3"));
+	_enumStringMap.insert(std::make_pair(KeyCode::Alpha4, "Alpha4"));
+	_enumStringMap.insert(std::make_pair(KeyCode::Alpha5, "Alpha5"));
+	_enumStringMap.insert(std::make_pair(KeyCode::Alpha6, "Alpha6"));
+	_enumStringMap.insert(std::make_pair(KeyCode::Alpha7, "Alpha7"));
+	_enumStringMap.insert(std::make_pair(KeyCode::Alpha8, "Alpha8"));
+	_enumStringMap.insert(std::make_pair(KeyCode::Alpha9, "Alpha9"));
 	_enumStringMap.insert(std::make_pair(KeyCode::F1, "F1"));
 	_enumStringMap.insert(std::make_pair(KeyCode::F2, "F2"));
 	_enumStringMap.insert(std::make_pair(KeyCode::F3, "F3"));
@@ -75,58 +86,43 @@ void Debug::Init()
 	_enumStringMap.insert(std::make_pair(KeyCode::F11, "F11"));
 	_enumStringMap.insert(std::make_pair(KeyCode::F12, "F12"));
 
-	_enumStringMap.insert(std::make_pair(KeyCode::Escape, "Escape"));
-	_enumStringMap.insert(std::make_pair(KeyCode::LCtrl, "L Ctrl"));
-	_enumStringMap.insert(std::make_pair(KeyCode::LShift, "L Shift"));
-	_enumStringMap.insert(std::make_pair(KeyCode::LAlt, "L ALt"));
-	_enumStringMap.insert(std::make_pair(KeyCode::LSystem, "L System"));
-
-	_enumStringMap.insert(std::make_pair(KeyCode::RCtrl, "R Ctrl"));
-	_enumStringMap.insert(std::make_pair(KeyCode::RShift, "R Shift"));
-	_enumStringMap.insert(std::make_pair(KeyCode::RAlt, "R Alt"));
-	_enumStringMap.insert(std::make_pair(KeyCode::RSystem, "R System"));
-
-	_enumStringMap.insert(std::make_pair(KeyCode::LBracket, "L Bracket"));
-	_enumStringMap.insert(std::make_pair(KeyCode::RBracket, "R Bracket"));
-	_enumStringMap.insert(std::make_pair(KeyCode::Semicolon, "Semicolon"));
-	_enumStringMap.insert(std::make_pair(KeyCode::SemiColon, "Semicolon"));
-	_enumStringMap.insert(std::make_pair(KeyCode::Comma, "Comma"));
-	_enumStringMap.insert(std::make_pair(KeyCode::Period, "Period"));
-	_enumStringMap.insert(std::make_pair(KeyCode::Quote, "Quote"));
-	_enumStringMap.insert(std::make_pair(KeyCode::Slash, "Slash"));
-	_enumStringMap.insert(std::make_pair(KeyCode::Backslash, "Backslash"));
-	_enumStringMap.insert(std::make_pair(KeyCode::BackSlash, "Backslash"));
-
-	_enumStringMap.insert(std::make_pair(KeyCode::Tilde, "Tilde"));
-	_enumStringMap.insert(std::make_pair(KeyCode::Equal, "Equal"));
-	_enumStringMap.insert(std::make_pair(KeyCode::Hyphen, "Hyphen"));
-	_enumStringMap.insert(std::make_pair(KeyCode::Dash, "Hyphen"));
-
-	_enumStringMap.insert(std::make_pair(KeyCode::Space, "Space"));
-	_enumStringMap.insert(std::make_pair(KeyCode::Enter, "Enter"));
-	_enumStringMap.insert(std::make_pair(KeyCode::Return, "Enter"));
 	_enumStringMap.insert(std::make_pair(KeyCode::Backspace, "Backspace"));
-	_enumStringMap.insert(std::make_pair(KeyCode::BackSpace, "Backspace"));
+	_enumStringMap.insert(std::make_pair(KeyCode::Delete, "Delete"));
 	_enumStringMap.insert(std::make_pair(KeyCode::Tab, "Tab"));
-
-	_enumStringMap.insert(std::make_pair(KeyCode::PageUp, "PageUp"));
-	_enumStringMap.insert(std::make_pair(KeyCode::PageDown, "PageDown"));
+	_enumStringMap.insert(std::make_pair(KeyCode::Return, "Return"));
+	_enumStringMap.insert(std::make_pair(KeyCode::Pause, "Pause"));
+	_enumStringMap.insert(std::make_pair(KeyCode::Escape, "Escape"));
+	_enumStringMap.insert(std::make_pair(KeyCode::Space, "Space"));
+	_enumStringMap.insert(std::make_pair(KeyCode::CapsLock, "CapsLock"));
+	_enumStringMap.insert(std::make_pair(KeyCode::NumLock, "NumLock"));
+	_enumStringMap.insert(std::make_pair(KeyCode::ScrollLock, "ScrollLock"));
+	_enumStringMap.insert(std::make_pair(KeyCode::KeypadPeriod, "KeypadPeriod"));
+	_enumStringMap.insert(std::make_pair(KeyCode::KeypadDivide, "KeypadDivide"));
+	_enumStringMap.insert(std::make_pair(KeyCode::KeypadMultiply, "KeypadMultiply"));
+	_enumStringMap.insert(std::make_pair(KeyCode::KeypadMinus, "KeypadMinus"));
+	_enumStringMap.insert(std::make_pair(KeyCode::KeypadPlus, "KeypadPlus"));
+	_enumStringMap.insert(std::make_pair(KeyCode::KeypadEnter, "KeypadEnter"));
+	_enumStringMap.insert(std::make_pair(KeyCode::UpArrow, "UpArrow"));
+	_enumStringMap.insert(std::make_pair(KeyCode::DownArrow, "DownArrow"));
+	_enumStringMap.insert(std::make_pair(KeyCode::RightArrow, "RightArrow"));
+	_enumStringMap.insert(std::make_pair(KeyCode::LeftArrow, "LeftArrow"));
+	_enumStringMap.insert(std::make_pair(KeyCode::Insert, "Insert"));
 	_enumStringMap.insert(std::make_pair(KeyCode::Home, "Home"));
 	_enumStringMap.insert(std::make_pair(KeyCode::End, "End"));
-	_enumStringMap.insert(std::make_pair(KeyCode::Insert, "Insert"));
-	_enumStringMap.insert(std::make_pair(KeyCode::Delete, "Delete"));
-
-	_enumStringMap.insert(std::make_pair(KeyCode::Add, "Add"));
-	_enumStringMap.insert(std::make_pair(KeyCode::Subtract, "Subtract"));
-	_enumStringMap.insert(std::make_pair(KeyCode::Multiply, "Multiply"));
-	_enumStringMap.insert(std::make_pair(KeyCode::Divide, "Divide"));
-
-	_enumStringMap.insert(std::make_pair(KeyCode::Left, "Left"));
-	_enumStringMap.insert(std::make_pair(KeyCode::Right, "Right"));
-	_enumStringMap.insert(std::make_pair(KeyCode::Up, "Up"));
-	_enumStringMap.insert(std::make_pair(KeyCode::Down, "Down"));
-
-	_enumStringMap.insert(std::make_pair(KeyCode::Pause, "Pause"));
+	_enumStringMap.insert(std::make_pair(KeyCode::PageUp, "PageUp"));
+	_enumStringMap.insert(std::make_pair(KeyCode::PageDown, "PageDown"));
+	_enumStringMap.insert(std::make_pair(KeyCode::PrintScreen, "PrintScreen"));
+	_enumStringMap.insert(std::make_pair(KeyCode::Equals, "Equals"));
+	_enumStringMap.insert(std::make_pair(KeyCode::Comma, "Comma"));
+	_enumStringMap.insert(std::make_pair(KeyCode::Minus, "Minus"));
+	_enumStringMap.insert(std::make_pair(KeyCode::Period, "Period"));
+	_enumStringMap.insert(std::make_pair(KeyCode::ForwardSlash, "ForwardSlash"));
+	_enumStringMap.insert(std::make_pair(KeyCode::BackSlash, "BackSlash"));
+	_enumStringMap.insert(std::make_pair(KeyCode::Colon, "Colon"));
+	_enumStringMap.insert(std::make_pair(KeyCode::LeftBracket, "LeftBracket"));
+	_enumStringMap.insert(std::make_pair(KeyCode::RightBracket, "RightBracket"));
+	_enumStringMap.insert(std::make_pair(KeyCode::Quote, "Quote"));
+	_enumStringMap.insert(std::make_pair(KeyCode::BackQuote, "BackQuote"));
 }
 
 void Debug::Log(std::string msg)
@@ -162,5 +158,13 @@ void Debug::Log(MouseEventData _mData)
 
 std::string Debug::KeyCodeToString(KeyCode code)
 {
-	return "Not yet implemented";
+	auto it = _enumStringMap.find(code);
+	if (it == _enumStringMap.end())
+	{
+		return "Debug.NO_KEY";
+	}
+	else
+	{
+		return it->second;
+	}
 }
