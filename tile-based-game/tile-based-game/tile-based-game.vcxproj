@@ -156,6 +156,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Source\Application.h" />
+    <ClInclude Include="InputEvent.h" />
+    <ClInclude Include="KeyCode.h" />
+    <ClInclude Include="KeyEvent.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

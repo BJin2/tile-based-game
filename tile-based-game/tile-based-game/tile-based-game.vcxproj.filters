@@ -13,6 +13,9 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Source Files\Event">
+      <UniqueIdentifier>{d82c04f5-2ea9-4662-a6c8-aa78194cf76d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\Source\main.cpp">
@@ -25,6 +28,15 @@
   <ItemGroup>
     <ClInclude Include="..\..\Source\Application.h">
       <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="KeyCode.h">
+      <Filter>Source Files\Event</Filter>
+    </ClInclude>
+    <ClInclude Include="InputEvent.h">
+      <Filter>Source Files\Event</Filter>
+    </ClInclude>
+    <ClInclude Include="KeyEvent.h">
+      <Filter>Source Files\Event</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
