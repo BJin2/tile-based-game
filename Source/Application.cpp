@@ -4,7 +4,6 @@ Application::Application(HINSTANCE _hInstance)
 {
 	hInstance = _hInstance;
 	hWnd = 0;
-	className = TEXT("tile-based-game");
 }
 
 bool Application::InitializeWindow()
@@ -26,9 +25,17 @@ bool Application::InitializeWindow()
 	//Register windows class
 	if (!RegisterClass(&wc))
 		return false;
+	return true;
+}
+
+bool Application::CreateAppWindow(LPCWSTR title, int x, int y, int width, int height)
+{
+	className = title;
+	if (!InitializeWindow())
+		return false;
 
 	//Create windows
-	this->hWnd = CreateWindow(className, className, WS_OVERLAPPEDWINDOW, CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT, NULL, (HMENU)NULL, hInstance, NULL);
+	this->hWnd = CreateWindow(className, className, WS_OVERLAPPEDWINDOW, x, y, width, height, NULL, (HMENU)NULL, hInstance, NULL);
 	if (!this->hWnd)
 		return false;
 
