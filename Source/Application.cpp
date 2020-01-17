@@ -1,4 +1,5 @@
 #include "Application.h"
+#include "Input/RawInput.h"
 
 Application::Application(HINSTANCE _hInstance)
 {
@@ -19,7 +20,7 @@ bool Application::InitializeWindow()
 	wc.hCursor = LoadCursor(NULL, IDC_ARROW);
 	wc.hIcon = LoadIcon(NULL, IDI_APPLICATION);
 	wc.hInstance = hInstance;
-	wc.lpfnWndProc = WndProc;
+	wc.lpfnWndProc = RawInput::WndProc;
 	wc.lpszClassName = className;
 	wc.lpszMenuName = NULL;
 	wc.style = CS_HREDRAW | CS_VREDRAW;
@@ -56,17 +57,4 @@ WPARAM Application::Run()
 	}
 
 	return msg.wParam;
-}
-
-LRESULT Application::WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
-{
-	switch (msg)
-	{
-	case WM_CLOSE:
-		PostQuitMessage(0);
-		break;
-	default:
-		return DefWindowProc(hWnd, msg, wParam, lParam);
-	}
-	return 0;
 }

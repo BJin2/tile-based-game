@@ -27,10 +27,28 @@
     <ClCompile Include="..\..\Source\Application.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Source\Input\RawInput.cpp">
+      <Filter>Source Files\InputHandler</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Source\Application.h">
       <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Event\InputEvent.h">
+      <Filter>Source Files\Event</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Event\KeyCode.h">
+      <Filter>Source Files\Event</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Event\KeyEvent.h">
+      <Filter>Source Files\Event</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Event\MouseEvent.h">
+      <Filter>Source Files\Event</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Input\RawInput.h">
+      <Filter>Source Files\InputHandler</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
