@@ -6,7 +6,7 @@ struct InputEventData
 	HWND hWnd = nullptr;
 	EventType eventType = EventType::NO_TYPE;
 	KeyCode mainKey = KeyCode::NO_CODE;
-	bool shif = false;
+	bool shift = false;
 	bool ctrl = false;
 	bool alt = false;
 	bool wasDown = false;
