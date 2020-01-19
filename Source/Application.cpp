@@ -32,6 +32,8 @@ bool Application::InitializeWindow()
 		return false;
 
 	Debug::Log("Initialized window");
+
+	RawInput::SetInputMapper(&m_inputMapper);
 	return true;
 }
 
@@ -62,6 +64,11 @@ WPARAM Application::Run()
 	}
 
 	return msg.wParam;
+}
+
+void Application::Shutdow()
+{
+	m_inputMapper.SceneCleanUp();
 }
 
 void Application::SetScene(Scene scene)

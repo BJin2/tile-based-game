@@ -5,6 +5,8 @@
 #include "../Event/KeyEvent.h"
 #include "../Debug/Debug.h"
 
+InputMapper* RawInput::m_inputMapper;
+
 void SetInputData(InputEventData& _data, HWND hWnd, WPARAM wParam, LPARAM lParam)
 {
 	_data.ctrl = GetKeyState(VK_CONTROL) < 0;
