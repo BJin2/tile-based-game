@@ -38,13 +38,12 @@ LRESULT RawInput::WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 		SetMouseData(_mData, hWnd, wParam, lParam);
 		_mData.mouseButtonCode = KeyCode::Mouse0;
 		_data.eventType = EventType::MouseEvent;
-		Debug::Log(_mData);
-		Debug::Log(_data);
+		m_inputMapper->RegisterMouseEvent(_mData, _data, HandlerCode::OnMousePressed);
 		break;
 	case WM_KEYDOWN:
 		SetInputData(_data, hWnd, wParam, lParam);
 		_data.eventType = EventType::KeyEvent;
-		Debug::Log(_data);
+		m_inputMapper->RegisterKeyEvent(_data, HandlerCode::OnKeyPressed);
 		break;
 	case WM_CLOSE:
 		PostQuitMessage(0);

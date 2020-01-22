@@ -17,13 +17,20 @@ int main()
 		MessageBox(app.GetHWND(), TEXT("Creating window failed"), TEXT("Window Error"), 0);
 		return -1;
 	}
-	//register scene
+	
+	app.m_inputMapper.RegisterScene(app.GetHWND(), &app.m_scene);
+
 	Scene scene1;
 	scene1.SetOnKeyPressed([](const KeyEvent* e)->void
 	{
 			std::cout << "Window1.onKEYpressed" << std::endl;
-			std::cout << "Key Pressed : " << Debug::KeyCodeToString(e->GetKeyCode());
+			std::cout << "Key Pressed : " << Debug::KeyCodeToString(e->GetKeyCode()) << std::endl;
 	});
+	scene1.SetOnMousePressed([](const MouseEvent* e)->void
+		{
+			std::cout << "Window1.onMOUSEpressed" << std::endl;
+			std::cout << "Key Pressed : " << Debug::KeyCodeToString(e->GetKeyCode()) << std::endl;
+		});
 
 	app.SetScene(scene1);
 

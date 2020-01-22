@@ -16,6 +16,21 @@ void Scene::SetOnEvent(void(*passedPointer)(const T* e), HandlerCode c)
 	}
 }
 
+bool Scene::HandleEvent(HandlerCode c, InputEvent* data)
+{
+	auto it = m_registeredEventHandler.find(c);
+	if (it != m_registeredEventHandler.end())
+	{
+		static_cast<EventHandler<InputEvent>*>(it->second)->handle(data);
+		return true;
+	}
+	else
+	{
+		std::cout << "NO HANDLER" << std::endl;
+		return false;
+	}
+}
+
 void Scene::SetOnKeyPressed(void(*passedPointer)(const KeyEvent* e))
 {
 	SetOnEvent<KeyEvent>(passedPointer, HandlerCode::OnKeyPressed);

@@ -3,7 +3,7 @@
 void InputMapper::RegisterKeyEvent(InputEventData data, HandlerCode c)
 {
 	m_keyEvent.SetData(data);
-	for (std::vector<Scene*>::iterator it = m_sceneMap.begin(); it != m_sceneMap.end(); i++)
+	for (std::vector<Scene*>::iterator it = m_sceneMap.begin(); it != m_sceneMap.end(); it++)
 	{
 		if ((*it)->GetHwnd() == data.hWnd)
 		{

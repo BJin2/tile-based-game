@@ -23,5 +23,5 @@ public:
 
 	InputMapper m_inputMapper;
 
-	HWND GetHWND() {return hWnd;}
+	HWND GetHWND() const {return hWnd;}
 };
