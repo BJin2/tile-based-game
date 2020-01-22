@@ -1,10 +1,14 @@
 #include "Application.h"
+#include "Input/RawInput.h"
+#include "Debug/Debug.h"
 
 Application::Application(HINSTANCE _hInstance)
 {
 	hInstance = _hInstance;
 	hWnd = 0;
-	className = TEXT("tile-based-game");
+	className = TEXT("");
+	msg = MSG();
+	Debug::Init();
 }
 
 bool Application::InitializeWindow()
@@ -18,7 +22,7 @@ bool Application::InitializeWindow()
 	wc.hCursor = LoadCursor(NULL, IDC_ARROW);
 	wc.hIcon = LoadIcon(NULL, IDI_APPLICATION);
 	wc.hInstance = hInstance;
-	wc.lpfnWndProc = WndProc;
+	wc.lpfnWndProc = RawInput::WndProc;
 	wc.lpszClassName = className;
 	wc.lpszMenuName = NULL;
 	wc.style = CS_HREDRAW | CS_VREDRAW;
@@ -27,28 +31,28 @@ bool Application::InitializeWindow()
 	if (!RegisterClass(&wc))
 		return false;
 
+	Debug::Log("Initialized window");
+
+	RawInput::SetInputMapper(&m_inputMapper);
+	return true;
+}
+
+bool Application::CreateAppWindow(LPCWSTR title, int x, int y, int width, int height)
+{
+	className = title;
+	if (!InitializeWindow())
+		return false;
+
 	//Create windows
-	this->hWnd = CreateWindow(className, className, WS_OVERLAPPEDWINDOW, CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT, NULL, (HMENU)NULL, hInstance, NULL);
+	this->hWnd = CreateWindow(className, className, WS_OVERLAPPEDWINDOW, x, y, width, height, NULL, (HMENU)NULL, hInstance, NULL);
 	if (!this->hWnd)
 		return false;
 
 	ShowWindow(this->hWnd, SW_SHOW);
 	UpdateWindow(this->hWnd);
 
+	Debug::Log("Created window");
 	return true;
-}
-
-LRESULT Application::WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
-{
-	switch (msg)
-	{
-	case WM_CLOSE:
-		PostQuitMessage(0);
-		break;
-	default:
-		return DefWindowProc(hWnd, msg, wParam, lParam);
-	}
-	return 0;
 }
 
 WPARAM Application::Run()
@@ -60,4 +64,15 @@ WPARAM Application::Run()
 	}
 
 	return msg.wParam;
+}
+
+void Application::Shutdow()
+{
+	m_inputMapper.SceneCleanUp();
+}
+
+void Application::SetScene(Scene scene)
+{
+	m_scene = scene;
+	m_scene.SetHwnd(hWnd);
 }
