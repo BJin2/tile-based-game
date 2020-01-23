@@ -1,5 +1,5 @@
 #pragma once
-#include "InputEvent.h"
+#include "Event.h"
 struct KeyEventData : InputEventData
 {
 	KeyCode key = KeyCode::NO_CODE;

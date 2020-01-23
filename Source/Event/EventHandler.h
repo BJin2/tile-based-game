@@ -1,6 +1,7 @@
 #pragma once
+#ifdef _DEBUG
 #include"../Debug/Debug.h"
-
+#endif
 class IEventHandler
 {
 private:
@@ -16,7 +17,9 @@ private:
 	void(*_handle)(const T* e);
 	static void DefaultHandle(const T* e)
 	{
+#ifdef _DEBUG
 		Debug::Log("EventHandler.DefaultHandler");
+#endif
 	}
 
 public:

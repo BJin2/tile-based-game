@@ -45,10 +45,10 @@
     <ClCompile Include="..\..\Source\Event\EventHandler.cpp">
       <Filter>Source Files\Event\Resolver</Filter>
     </ClCompile>
-    <ClCompile Include="EventManager.cpp">
+    <ClCompile Include="..\..\Source\Event\EventMapper.cpp">
       <Filter>Source Files\Event\Resolver</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Source\Event\EventMapper.cpp">
+    <ClCompile Include="..\..\Source\Event\EventManager.cpp">
       <Filter>Source Files\Event\Resolver</Filter>
     </ClCompile>
   </ItemGroup>
@@ -71,17 +71,20 @@
     <ClInclude Include="..\..\Source\Event\EventMapper.h">
       <Filter>Source Files\Event\Resolver</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Source\Event\InputEvent.h">
-      <Filter>Source Files\Event\Info</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Event\KeyCode.h">
-      <Filter>Source Files\Event\Info</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\Source\Event\KeyEvent.h">
       <Filter>Source Files\Event\Info</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\Event\MouseEvent.h">
       <Filter>Source Files\Event\Info</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Event\Event.h">
+      <Filter>Source Files\Event\Info</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Event\EventType.h">
+      <Filter>Source Files\Event\Info</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Input\KeyCode.h">
+      <Filter>Source Files\Input</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

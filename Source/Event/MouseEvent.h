@@ -1,8 +1,9 @@
 #pragma once
-#include "InputEvent.h"
 #include <unordered_map>
+#include "Event.h"
+#include "../Input/KeyCode.h"
 
-struct MouseEventData : InputEventData
+struct MouseEventData : IEventData
 {
 	KeyCode button = KeyCode::NO_CODE;
 
@@ -15,10 +16,8 @@ struct MouseEventData : InputEventData
 	std::unordered_map<KeyCode, bool> up;
 	std::unordered_map<KeyCode, bool> hold;
 	
-	MouseEventData() : InputEventData() 
+	MouseEventData()
 	{
-		eventType = EventType::MouseEvent;
-
 		down.insert(std::make_pair(KeyCode::Mouse0, false));
 		down.insert(std::make_pair(KeyCode::Mouse1, false));
 		down.insert(std::make_pair(KeyCode::Mouse2, false));
@@ -33,11 +32,16 @@ struct MouseEventData : InputEventData
 	}
 };
 
-class MouseEvent : public InputEvent
+class MouseEvent : public IEvent
 {
 private:
 	MouseEventData m_mouseEventData;
+	
 public:
+	static const EventType Event;
+
+	virtual const EventType GetEventType() const { return Event; }
+
 	inline unsigned short GetScreenX() const { return m_mouseEventData.screenX; }
 	inline unsigned short GetScreenY() const { return m_mouseEventData.screenY; }
 	inline unsigned short GetWindowX() const { return m_mouseEventData.windowX; }
