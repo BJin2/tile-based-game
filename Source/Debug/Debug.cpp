@@ -125,35 +125,37 @@ void Debug::Init()
 	_enumStringMap.insert(std::make_pair(KeyCode::BackQuote, "BackQuote"));
 }
 
-void Debug::Log(std::string msg)
-{
-	std::cout << "Debug.Log: " << std::endl << msg << std::endl;
-}
-
-void Debug::Log(InputEventData _data)
+void Debug::Log(InputEventData* _data)
 {
 	TCHAR title[40];
-	GetWindowText(_data.hWnd, title, sizeof(title));
+	GetWindowText(_data->hWnd, title, sizeof(title));
 	std::cout << "==== Input Data ====" << std::endl;
 	std::wcout << "Calling Window : " << title << std::endl;
-	std::cout << "Main Key : "<< KeyCodeToString(_data.mainKey) << std::endl;
-	std::cout << "Shift : "<< _data.shift << std::endl;
-	std::cout << "Ctrl : " << _data.ctrl << std::endl;
-	std::cout << "Alt : " << _data.alt << std::endl;
 }
 
-void Debug::Log(MouseEventData _mData)
+void Debug::Log(KeyEventData _data)
 {
-	std::cout << "==== Mouse Data ====" << std::endl;
-	std::cout << "Screen X : " << _mData.screenX << std::endl;
-	std::cout << "Screen Y : " << _mData.screenY << std::endl;
-	std::cout << "Window X : " << _mData.windowX << std::endl;
-	std::cout << "Window Y : " << _mData.windowY << std::endl;
+	Log(&_data);
+	std::cout << "==== Key Data ====" << std::endl;
+	std::cout << "Key : " << KeyCodeToString(_data.key) << std::endl;
+	std::cout << "Is Key Down : " << _data.down << std::endl;
+	std::cout << "Is Key Up : " << _data.up << std::endl;
+	std::cout << "Is Key Hold : " << _data.hold << std::endl;
+}
 
-	std::cout << "MouseButton : " << KeyCodeToString(_mData.mouseButtonCode) << std::endl;
-	std::cout << "Is left Down : " << _mData.isLeftDown << std::endl;
-	std::cout << "Is Right Down : " << _mData.isRightDown << std::endl;
-	std::cout << "Is Middle Down : " << _mData.isMiddleDown << std::endl;
+void Debug::Log(MouseEventData _data)
+{
+	Log(&_data);
+	std::cout << "==== Mouse Data ====" << std::endl;
+	std::cout << "Screen X : " << _data.screenX << std::endl;
+	std::cout << "Screen Y : " << _data.screenY << std::endl;
+	std::cout << "Window X : " << _data.windowX << std::endl;
+	std::cout << "Window Y : " << _data.windowY << std::endl;
+
+	std::cout << "MouseButton : " << KeyCodeToString(_data.button) << std::endl;
+	std::cout << "Is Button Down : " << _data.down[_data.button] << std::endl;
+	std::cout << "Is Button Up : " << _data.up[_data.button] << std::endl;
+	std::cout << "Is Button Hold : " << _data.hold[_data.button] << std::endl;
 }
 
 std::string Debug::KeyCodeToString(KeyCode code)

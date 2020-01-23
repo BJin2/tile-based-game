@@ -154,10 +154,8 @@
     <ClCompile Include="..\..\Source\Application.cpp" />
     <ClCompile Include="..\..\Source\Debug\Debug.cpp" />
     <ClCompile Include="..\..\Source\Event\EventHandler.cpp" />
-    <ClCompile Include="..\..\Source\Input\InputMapper.cpp" />
     <ClCompile Include="..\..\Source\Input\RawInput.cpp" />
     <ClCompile Include="..\..\Source\main.cpp" />
-    <ClCompile Include="..\..\Source\Scene.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Source\Application.h" />
@@ -167,9 +165,7 @@
     <ClInclude Include="..\..\Source\Event\KeyCode.h" />
     <ClInclude Include="..\..\Source\Event\KeyEvent.h" />
     <ClInclude Include="..\..\Source\Event\MouseEvent.h" />
-    <ClInclude Include="..\..\Source\Input\InputMapper.h" />
     <ClInclude Include="..\..\Source\Input\RawInput.h" />
-    <ClInclude Include="..\..\Source\Scene.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
