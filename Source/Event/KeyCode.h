@@ -1,6 +1,5 @@
 #pragma once
 enum class EventType: __int8 {NO_TYPE, KeyEvent, MouseEvent};
-enum class HandlerCode : __int8 { NO_CODE, OnKeyPressed, OnMousePressed };
 enum class KeyCode : __int8
 {
 	NO_CODE = 0x00,

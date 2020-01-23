@@ -39,12 +39,6 @@
     <ClCompile Include="..\..\Source\Event\EventHandler.cpp">
       <Filter>Source Files\Event</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Source\Scene.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\Input\InputMapper.cpp">
-      <Filter>Source Files\Input</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Source\Application.h">
@@ -70,12 +64,6 @@
     </ClInclude>
     <ClInclude Include="..\..\Source\Event\EventHandler.h">
       <Filter>Source Files\Event</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Scene.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Input\InputMapper.h">
-      <Filter>Source Files\Input</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

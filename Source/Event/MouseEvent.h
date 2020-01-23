@@ -1,18 +1,36 @@
 #pragma once
 #include "InputEvent.h"
+#include <unordered_map>
 
-struct MouseEventData
+struct MouseEventData : InputEventData
 {
+	KeyCode button = KeyCode::NO_CODE;
+
 	unsigned short screenX = 0;
 	unsigned short screenY = 0;
 	unsigned short windowX = 0;
 	unsigned short windowY = 0;
+	
+	std::unordered_map<KeyCode, bool> down;
+	std::unordered_map<KeyCode, bool> up;
+	std::unordered_map<KeyCode, bool> hold;
+	
+	MouseEventData() : InputEventData() 
+	{
+		eventType = EventType::MouseEvent;
 
-	bool isMiddleDown = false;
-	bool isLeftDown = false;
-	bool isRightDown = false;
-	KeyCode mouseButtonCode = KeyCode::NO_CODE;
-	MouseEventData() {}
+		down.insert(std::make_pair(KeyCode::Mouse0, false));
+		down.insert(std::make_pair(KeyCode::Mouse1, false));
+		down.insert(std::make_pair(KeyCode::Mouse2, false));
+
+		up.insert(std::make_pair(KeyCode::Mouse0, false));
+		up.insert(std::make_pair(KeyCode::Mouse1, false));
+		up.insert(std::make_pair(KeyCode::Mouse2, false));
+
+		hold.insert(std::make_pair(KeyCode::Mouse0, false));
+		hold.insert(std::make_pair(KeyCode::Mouse1, false));
+		hold.insert(std::make_pair(KeyCode::Mouse2, false));
+	}
 };
 
 class MouseEvent : public InputEvent
@@ -25,11 +43,7 @@ public:
 	inline unsigned short GetWindowX() const { return m_mouseEventData.windowX; }
 	inline unsigned short GetWindowY() const { return m_mouseEventData.windowY; }
 
-	inline bool IsMiddleDown() const { return m_mouseEventData.isMiddleDown; }
-	inline bool IsLeftDown() const { return m_mouseEventData.isLeftDown; }
-	inline bool IsRightDown() const { return m_mouseEventData.isRightDown; }
-
-	inline KeyCode GetMouseButtonCode() const { return m_mouseEventData.mouseButtonCode; }
-
-	inline void SetMouseEventData(MouseEventData me) { m_mouseEventData = me; }
+	inline bool GetMouseButtonDown(KeyCode button) { return m_mouseEventData.down[button]; }
+	inline bool GetMouseButtonUp(KeyCode button) { return m_mouseEventData.up[button]; }
+	inline bool GetMouseButton(KeyCode button) { return m_mouseEventData.hold[button]; }
 };

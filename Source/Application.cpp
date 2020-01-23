@@ -1,6 +1,10 @@
+#ifdef _DEBUG
+	#include "Debug/Debug.h"
+#endif
+
 #include "Application.h"
 #include "Input/RawInput.h"
-#include "Debug/Debug.h"
+
 
 Application::Application(HINSTANCE _hInstance)
 {
@@ -8,7 +12,6 @@ Application::Application(HINSTANCE _hInstance)
 	hWnd = 0;
 	className = TEXT("");
 	msg = MSG();
-	Debug::Init();
 }
 
 bool Application::InitializeWindow()
@@ -33,7 +36,6 @@ bool Application::InitializeWindow()
 
 	Debug::Log("Initialized window");
 
-	RawInput::SetInputMapper(&m_inputMapper);
 	return true;
 }
 
@@ -64,15 +66,4 @@ WPARAM Application::Run()
 	}
 
 	return msg.wParam;
-}
-
-void Application::Shutdow()
-{
-	m_inputMapper.SceneCleanUp();
-}
-
-void Application::SetScene(Scene scene)
-{
-	m_scene = scene;
-	m_scene.SetHwnd(hWnd);
 }

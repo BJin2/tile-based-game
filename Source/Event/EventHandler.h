@@ -14,15 +14,15 @@ class EventHandler : public IEventHandler
 {
 private:
 	void(*_handle)(const T* e);
-	static void dummyHandle(const T* e)
+	static void DefaultHandle(const T* e)
 	{
-		Debug::Log("EventHandler.dummyHandler()");
+		Debug::Log("EventHandler.DefaultHandler");
 	}
 
 public:
 	EventHandler()
 	{
-		_handle = dummyHandle;
+		_handle = DefaultHandle;
 	}
 	void SetHandle(void(*passedPointer)(const T*)) { _handle = passedPointer; }
 	void handle(T* e) { _handle(e); }

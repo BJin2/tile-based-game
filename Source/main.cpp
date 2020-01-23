@@ -1,14 +1,14 @@
 #include "Application.h"
-#include "Event/KeyEvent.h"
-#include "Scene.h"
 
 LPCWSTR title = TEXT("tile-game");
 
+//When configuration is Debug
 #ifdef _DEBUG
 #include "Debug/Debug.h"
 int main()
 {
 	AllocConsole();
+	Debug::Init();
 	HINSTANCE hInstance = GetModuleHandle(nullptr);
 	Application app(hInstance);
 	Debug::Log("Initializing window");
@@ -17,22 +17,6 @@ int main()
 		MessageBox(app.GetHWND(), TEXT("Creating window failed"), TEXT("Window Error"), 0);
 		return -1;
 	}
-	
-	app.m_inputMapper.RegisterScene(app.GetHWND(), &app.m_scene);
-
-	Scene scene1;
-	scene1.SetOnKeyPressed([](const KeyEvent* e)->void
-	{
-			std::cout << "Window1.onKEYpressed" << std::endl;
-			std::cout << "Key Pressed : " << Debug::KeyCodeToString(e->GetKeyCode()) << std::endl;
-	});
-	scene1.SetOnMousePressed([](const MouseEvent* e)->void
-		{
-			std::cout << "Window1.onMOUSEpressed" << std::endl;
-			std::cout << "Key Pressed : " << Debug::KeyCodeToString(e->GetKeyCode()) << std::endl;
-		});
-
-	app.SetScene(scene1);
 
 	return static_cast<int>(app.Run());
 }
