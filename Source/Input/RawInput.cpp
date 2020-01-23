@@ -26,9 +26,11 @@ LRESULT RawInput::WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 	static InputEventData _data;
 	static MouseEventData _mData;
 
+	//will call event manager register
 	switch (msg)
 	{
 	case WM_LBUTTONDOWN:
+		
 		//SetInputData(_data, hWnd, wParam, lParam);
 		SetMouseData(_mData, hWnd, wParam, lParam);
 		//_mData.mouseButtonCode = KeyCode::Mouse0;
