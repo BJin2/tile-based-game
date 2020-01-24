@@ -1,35 +1,34 @@
 #pragma once
-#include "InputEvent.h"
+#include "Event.h"
 
-struct MouseEventData
+struct MouseEventData : IEventData
 {
-	unsigned short screenX = 0;
-	unsigned short screenY = 0;
-	unsigned short windowX = 0;
-	unsigned short windowY = 0;
+	unsigned short screenX;
+	unsigned short screenY;
+	unsigned short windowX;
+	unsigned short windowY;
 
-	bool isMiddleDown = false;
-	bool isLeftDown = false;
-	bool isRightDown = false;
-	KeyCode mouseButtonCode = KeyCode::NO_CODE;
-	MouseEventData() {}
+	// TODO mouse button check
+
+	static const EventType type;
+	KeyCode button;
 };
 
-class MouseEvent : public InputEvent
+class MouseEvent : public IEvent
 {
 private:
 	MouseEventData m_mouseEventData;
+
 public:
+	MouseEvent() {m_mouseEventData = *static_cast<MouseEventData*>(m_eventData);}
+	virtual const EventType GetEventType() override { return  MouseEventData::type;}
 	inline unsigned short GetScreenX() const { return m_mouseEventData.screenX; }
 	inline unsigned short GetScreenY() const { return m_mouseEventData.screenY; }
 	inline unsigned short GetWindowX() const { return m_mouseEventData.windowX; }
 	inline unsigned short GetWindowY() const { return m_mouseEventData.windowY; }
 
-	inline bool IsMiddleDown() const { return m_mouseEventData.isMiddleDown; }
-	inline bool IsLeftDown() const { return m_mouseEventData.isLeftDown; }
-	inline bool IsRightDown() const { return m_mouseEventData.isRightDown; }
-
-	inline KeyCode GetMouseButtonCode() const { return m_mouseEventData.mouseButtonCode; }
-
-	inline void SetMouseEventData(MouseEventData me) { m_mouseEventData = me; }
+	//TODO mouse button check
+	//inline bool GetMouseButtonDown(KeyCode button) { return m_mouseEventData.down[button]; }
+	//inline bool GetMouseButtonUp(KeyCode button) { return m_mouseEventData.up[button]; }
+	//inline bool GetMouseButton(KeyCode button) { return m_mouseEventData.hold[button]; }
 };

@@ -22,6 +22,12 @@
     <Filter Include="Source Files\Input">
       <UniqueIdentifier>{eebb75f9-e014-43b4-aec2-3d9a4f1c0b1e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Event\Info">
+      <UniqueIdentifier>{d270cb54-2ca6-4506-a2e5-12534442da5e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Event\Resolver">
+      <UniqueIdentifier>{78d6970c-a785-4d73-96c3-de7faa9b68f8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\Source\main.cpp">
@@ -36,31 +42,19 @@
     <ClCompile Include="..\..\Source\Debug\Debug.cpp">
       <Filter>Source Files\Debug</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Source\Event\EventHandler.cpp">
-      <Filter>Source Files\Event</Filter>
+    <ClCompile Include="..\..\Source\Event\EventMapper.cpp">
+      <Filter>Source Files\Event\Resolver</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Source\Scene.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="..\..\Source\Event\EventManager.cpp">
+      <Filter>Source Files\Event\Resolver</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Source\Input\InputMapper.cpp">
-      <Filter>Source Files\Input</Filter>
+    <ClCompile Include="..\..\Source\Event\EventType.cpp">
+      <Filter>Source Files\Event\Info</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Source\Application.h">
       <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Event\InputEvent.h">
-      <Filter>Source Files\Event</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Event\KeyCode.h">
-      <Filter>Source Files\Event</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Event\KeyEvent.h">
-      <Filter>Source Files\Event</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Event\MouseEvent.h">
-      <Filter>Source Files\Event</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\Input\RawInput.h">
       <Filter>Source Files\Input</Filter>
@@ -69,12 +63,27 @@
       <Filter>Source Files\Debug</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\Event\EventHandler.h">
-      <Filter>Source Files\Event</Filter>
+      <Filter>Source Files\Event\Resolver</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Source\Scene.h">
-      <Filter>Source Files</Filter>
+    <ClInclude Include="..\..\Source\Event\EventManager.h">
+      <Filter>Source Files\Event\Resolver</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Source\Input\InputMapper.h">
+    <ClInclude Include="..\..\Source\Event\EventMapper.h">
+      <Filter>Source Files\Event\Resolver</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Event\KeyEvent.h">
+      <Filter>Source Files\Event\Info</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Event\MouseEvent.h">
+      <Filter>Source Files\Event\Info</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Event\Event.h">
+      <Filter>Source Files\Event\Info</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Event\EventType.h">
+      <Filter>Source Files\Event\Info</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Input\KeyCode.h">
       <Filter>Source Files\Input</Filter>
     </ClInclude>
   </ItemGroup>

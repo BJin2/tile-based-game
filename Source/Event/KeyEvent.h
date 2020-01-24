@@ -1,6 +1,25 @@
 #pragma once
-#include "InputEvent.h"
-class KeyEvent : public InputEvent
-{
+#include "Event.h"
 
+struct KeyEventData : IEventData
+{
+	bool down;
+	bool up;
+	bool hold;
+	char placeholder;
+
+	static const EventType type;
+	KeyCode key;
+};
+
+class KeyEvent : public IEvent
+{
+private:
+	KeyEventData m_keyEventData;
+public:
+	KeyEvent() { m_keyEventData = *static_cast<KeyEventData*>(m_eventData); }
+	virtual const EventType GetEventType() override { return  KeyEventData::type; }
+	inline bool GetKeyDown(KeyCode key) { return (m_keyEventData.key == key) && m_keyEventData.down; }
+	inline bool GetKeyUp(KeyCode key) { return (m_keyEventData.key == key) && m_keyEventData.up; }
+	inline bool GetKey(KeyCode key) { return (m_keyEventData.key == key) && m_keyEventData.hold; }
 };
