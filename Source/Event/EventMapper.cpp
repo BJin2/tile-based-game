@@ -10,23 +10,24 @@ void EventMapper::SetOnEvent(void(*passedPointer)(IEvent* e), EventType t)
 	}
 	else
 	{
-		EventHandler* p = new EventHandler<T>();
+		EventHandler* p = new EventHandler();
 		p->SetHandle(passedPointer);
 		m_registeredHandler.insert(std::make_pair(t, p));
 	}
 }
 
-bool EventMapper::HandleEvent(EventType t, IEvent* data)
+bool EventMapper::HandleEvent(EventType t, IEvent* e)
 {
 	auto it = m_registeredHandler.find(t);
 	if (it != m_registeredHandler.end())
 	{
-		it->second->handle(data);
+		it->second->handle(e);
 		return true;
 	}
 	else
 	{
 		std::cout << "NO HANDLER" << std::endl;
+		delete e;
 		return false;
 	}
 }

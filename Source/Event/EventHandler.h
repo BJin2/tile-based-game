@@ -21,5 +21,5 @@ public:
 		_handle = DefaultHandle;
 	}
 	void SetHandle(void(*passedPointer)(const IEvent*)) { _handle = passedPointer; }
-	void handle(IEvent* e) { _handle(e); }
+	void handle(IEvent* e) { _handle(e); delete e; }
 };
