@@ -2,12 +2,12 @@
 #ifdef _DEBUG
 #include"../Debug/Debug.h"
 #endif
-class IEventHandler
+class IEventHandler abstract
 {
 private:
 	template<class T>
 	friend class EventHandler;
-	virtual ~IEventHandler() = 0;
+	//virtual ~IEventHandler() = 0;
 };
 
 template <class T>
@@ -30,3 +30,5 @@ public:
 	void SetHandle(void(*passedPointer)(const T*)) { _handle = passedPointer; }
 	void handle(T* e) { _handle(e); }
 };
+
+//IEventHandler::~IEventHandler() {}

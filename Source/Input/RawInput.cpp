@@ -23,8 +23,8 @@ void SetMouseData(MouseEventData& _mData, HWND hWnd, WPARAM wParam, LPARAM lPara
 
 LRESULT RawInput::WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {
-	static InputEventData _data;
-	static MouseEventData _mData;
+	//static InputEventData _data;
+	//static MouseEventData _mData;
 
 	//will call event manager register
 	switch (msg)
@@ -32,13 +32,13 @@ LRESULT RawInput::WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 	case WM_LBUTTONDOWN:
 		
 		//SetInputData(_data, hWnd, wParam, lParam);
-		SetMouseData(_mData, hWnd, wParam, lParam);
+		//SetMouseData(_mData, hWnd, wParam, lParam);
 		//_mData.mouseButtonCode = KeyCode::Mouse0;
-		_data.eventType = EventType::MouseEvent;
+		//_data.eventType = EventType::MouseEvent;
 		break;
 	case WM_KEYDOWN:
 		//SetInputData(_data, hWnd, wParam, lParam);
-		_data.eventType = EventType::KeyEvent;
+		//_data.eventType = EventType::KeyEvent;
 		break;
 	case WM_CLOSE:
 		PostQuitMessage(0);

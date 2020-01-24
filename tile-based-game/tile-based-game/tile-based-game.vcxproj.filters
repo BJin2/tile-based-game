@@ -42,14 +42,14 @@
     <ClCompile Include="..\..\Source\Debug\Debug.cpp">
       <Filter>Source Files\Debug</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Source\Event\EventHandler.cpp">
-      <Filter>Source Files\Event\Resolver</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\Source\Event\EventMapper.cpp">
       <Filter>Source Files\Event\Resolver</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\Event\EventManager.cpp">
       <Filter>Source Files\Event\Resolver</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Event\EventType.cpp">
+      <Filter>Source Files\Event\Info</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -1,4 +1,5 @@
 #include "Debug.h"
+
 std::unordered_map<KeyCode, std::string> Debug::_enumStringMap;
 void Debug::Init()
 {
@@ -125,7 +126,17 @@ void Debug::Init()
 	_enumStringMap.insert(std::make_pair(KeyCode::BackQuote, "BackQuote"));
 }
 
-void Debug::Log(InputEventData* _data)
+void Debug::Log(EventType type)
+{
+	if (type == EventType::KeyEvent)
+		Log("KeyEvent");
+	else if (type == EventType::MouseEvent)
+		Log("MouseEvent");
+	else
+		Log("NO_TYPE");
+}
+
+void Debug::Log(IEventData* _data)
 {
 	TCHAR title[40];
 	GetWindowText(_data->hWnd, title, sizeof(title));
@@ -153,9 +164,9 @@ void Debug::Log(MouseEventData _data)
 	std::cout << "Window Y : " << _data.windowY << std::endl;
 
 	std::cout << "MouseButton : " << KeyCodeToString(_data.button) << std::endl;
-	std::cout << "Is Button Down : " << _data.down[_data.button] << std::endl;
-	std::cout << "Is Button Up : " << _data.up[_data.button] << std::endl;
-	std::cout << "Is Button Hold : " << _data.hold[_data.button] << std::endl;
+	//std::cout << "Is Button Down : " << _data.down[_data.button] << std::endl;
+	//std::cout << "Is Button Up : " << _data.up[_data.button] << std::endl;
+	//std::cout << "Is Button Hold : " << _data.hold[_data.button] << std::endl;
 }
 
 std::string Debug::KeyCodeToString(KeyCode code)

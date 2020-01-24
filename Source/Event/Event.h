@@ -1,25 +1,25 @@
 #pragma once
 #include <Windows.h>
 #include "EventType.h"
+#include "../Input/KeyCode.h"
 
-class IEventData
+//Event data interface :
+//Holding neccessary data for event handle
+struct IEventData abstract
 {
-public:
-	virtual ~IEventData() = 0;
 	//window that fired event
-	HWND hWnd = nullptr;
+	HWND hWnd;
 };
 
-IEventData::~IEventData() {}
-
+//Event interface:
+//
 class IEvent
 {
-private:
+protected:
 	IEventData* m_eventData;
 
 public:
-	virtual const EventType GetEventType() const = 0;
+	virtual const EventType GetEventType() = 0;
 	inline HWND GetSource() const { return m_eventData->hWnd; }
-
 	inline void SetData(IEventData* ie) { m_eventData = ie; }
 };
