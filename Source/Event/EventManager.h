@@ -9,6 +9,7 @@ private:
 
 public:
 	void RegisterMapper(HWND hWnd, EventMapper* em);
-	
+	void RegisterEvent(EventType t, IEventData* data);
+	void CleanMapper();
 };
 

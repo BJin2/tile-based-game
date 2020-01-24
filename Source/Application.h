@@ -15,5 +15,5 @@ public:
 	bool CreateAppWindow(LPCWSTR title, int x, int y, int width, int height);
 	WPARAM Run();
 
-	HWND GetHWND() const {return hWnd;}
+	inline HWND GetHWND() const {return hWnd;}
 };

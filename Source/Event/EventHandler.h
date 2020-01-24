@@ -1,21 +1,14 @@
 #pragma once
+#include "Event.h"
 #ifdef _DEBUG
 #include"../Debug/Debug.h"
 #endif
-class IEventHandler abstract
-{
-private:
-	template<class T>
-	friend class EventHandler;
-	//virtual ~IEventHandler() = 0;
-};
 
-template <class T>
-class EventHandler : public IEventHandler
+class EventHandler
 {
 private:
-	void(*_handle)(const T* e);
-	static void DefaultHandle(const T* e)
+	void(*_handle)(const IEvent* e);
+	static void DefaultHandle(const IEvent* e)
 	{
 #ifdef _DEBUG
 		Debug::Log("EventHandler.DefaultHandler");
@@ -27,8 +20,6 @@ public:
 	{
 		_handle = DefaultHandle;
 	}
-	void SetHandle(void(*passedPointer)(const T*)) { _handle = passedPointer; }
-	void handle(T* e) { _handle(e); }
+	void SetHandle(void(*passedPointer)(const IEvent*)) { _handle = passedPointer; }
+	void handle(IEvent* e) { _handle(e); }
 };
-
-//IEventHandler::~IEventHandler() {}
