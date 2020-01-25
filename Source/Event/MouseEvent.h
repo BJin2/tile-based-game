@@ -21,7 +21,7 @@ private:
 
 public:
 	MouseEvent() {m_mouseEventData = *static_cast<MouseEventData*>(m_eventData);}
-	virtual const EventType GetEventType() override { return  MouseEventData::type;}
+	virtual EventType GetEventType()const override { return  MouseEventData::type;}
 	inline unsigned short GetScreenX() const { return m_mouseEventData.screenX; }
 	inline unsigned short GetScreenY() const { return m_mouseEventData.screenY; }
 	inline unsigned short GetWindowX() const { return m_mouseEventData.windowX; }

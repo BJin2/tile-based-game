@@ -51,6 +51,9 @@
     <ClCompile Include="..\..\Source\Event\EventType.cpp">
       <Filter>Source Files\Event\Info</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Source\Event\EventConverter.cpp">
+      <Filter>Source Files\Event\Info</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Source\Application.h">
@@ -85,6 +88,9 @@
     </ClInclude>
     <ClInclude Include="..\..\Source\Input\KeyCode.h">
       <Filter>Source Files\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Event\EventConverter.h">
+      <Filter>Source Files\Event\Info</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

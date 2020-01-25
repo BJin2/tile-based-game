@@ -19,7 +19,8 @@ protected:
 	IEventData* m_eventData;
 
 public:
-	virtual const EventType GetEventType() { return EventType::NO_TYPE; }
+	virtual EventType GetEventType() const { return EventType::NO_TYPE; }
 	inline HWND GetSource() const { return m_eventData->hWnd; }
 	inline void SetData(IEventData* ie) { m_eventData = ie; }
+	inline IEventData* GetData() const { return m_eventData; }
 };
