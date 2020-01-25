@@ -1,7 +1,6 @@
 #include "EventMapper.h"
 
-template<class T>
-void EventMapper::SetOnEvent(void(*passedPointer)(IEvent* e), EventType t)
+void EventMapper::SetOnEvent(void(*passedPointer)(const IEvent* e), EventType t)
 {
 	auto it = m_registeredHandler.find(t);
 	if (it != m_registeredHandler.end())
@@ -27,7 +26,6 @@ bool EventMapper::HandleEvent(EventType t, IEvent* e)
 	else
 	{
 		std::cout << "NO HANDLER" << std::endl;
-		delete e;
 		return false;
 	}
 }

@@ -11,11 +11,9 @@ private:
 	std::unordered_map<EventType, EventHandler*> m_registeredHandler;
 
 public:
-	template<class T>
-	void SetOnEvent(void(* passedPointer)(IEvent* e), EventType t);
+	void SetOnEvent(void(* passedPointer)(const IEvent* e), EventType t);
 	bool HandleEvent(EventType t, IEvent* data);
 	void CleanMapper();
 	inline HWND GetHWND() const { return hWnd; }
 	inline void SetHWND(HWND _hWnd) { hWnd = _hWnd; }
 };
-

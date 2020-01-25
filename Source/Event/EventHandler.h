@@ -1,8 +1,6 @@
 #pragma once
+#include <iostream>
 #include "Event.h"
-#ifdef _DEBUG
-#include"../Debug/Debug.h"
-#endif
 
 class EventHandler
 {
@@ -10,9 +8,7 @@ private:
 	void(*_handle)(const IEvent* e);
 	static void DefaultHandle(const IEvent* e)
 	{
-#ifdef _DEBUG
-		Debug::Log("EventHandler.DefaultHandler");
-#endif
+		std::cout << "EventHandler.DefaultHandler" << std::endl;
 	}
 
 public:
@@ -21,5 +17,5 @@ public:
 		_handle = DefaultHandle;
 	}
 	void SetHandle(void(*passedPointer)(const IEvent*)) { _handle = passedPointer; }
-	void handle(IEvent* e) { _handle(e); delete e; }
+	void handle(IEvent* e) { _handle(e); }
 };

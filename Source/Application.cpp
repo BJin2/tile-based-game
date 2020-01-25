@@ -4,7 +4,7 @@
 
 #include "Application.h"
 #include "Input/RawInput.h"
-
+#include "Event/EventManager.h"
 
 Application::Application(HINSTANCE _hInstance)
 {
@@ -12,6 +12,7 @@ Application::Application(HINSTANCE _hInstance)
 	hWnd = 0;
 	className = TEXT("");
 	msg = MSG();
+	mapper = new EventMapper();
 }
 
 bool Application::InitializeWindow()
@@ -54,6 +55,15 @@ bool Application::CreateAppWindow(LPCWSTR title, int x, int y, int width, int he
 	UpdateWindow(this->hWnd);
 
 	Debug::Log("Created window");
+
+	EventManager::Instance()->RegisterMapper(hWnd, mapper);
+	mapper->SetOnEvent([](const IEvent* e)->void
+		{
+			//KeyEvent* k = const_cast<KeyEvent*>(e);
+			Debug::Log("Window1 key pressed");
+			//std::cout << "Key Pressed : " << Debug::KeyCodeToString(e->GetKeyCode()) << std::endl;
+		}, KeyEventData::type);
+
 	return true;
 }
 
