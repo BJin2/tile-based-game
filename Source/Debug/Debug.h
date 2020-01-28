@@ -1,4 +1,3 @@
-#if _DEBUG
 #pragma once
 #include <iostream>
 #include <string>
@@ -23,4 +22,3 @@ public:
 private:
 	static std::unordered_map<KeyCode, std::string> _enumStringMap;
 };
-#endif

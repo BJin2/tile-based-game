@@ -157,6 +157,7 @@
     <ClCompile Include="..\..\Source\Event\EventMapper.cpp" />
     <ClCompile Include="..\..\Source\Event\EventType.cpp" />
     <ClCompile Include="..\..\Source\Game\Game.cpp" />
+    <ClCompile Include="..\..\Source\Game\Time\Time.cpp" />
     <ClCompile Include="..\..\Source\Input\Input.cpp" />
     <ClCompile Include="..\..\Source\Input\RawInput.cpp" />
     <ClCompile Include="..\..\Source\main.cpp" />
@@ -172,6 +173,7 @@
     <ClInclude Include="..\..\Source\Event\KeyEvent.h" />
     <ClInclude Include="..\..\Source\Event\MouseEvent.h" />
     <ClInclude Include="..\..\Source\Game\Game.h" />
+    <ClInclude Include="..\..\Source\Game\Time\Time.h" />
     <ClInclude Include="..\..\Source\Input\Input.h" />
     <ClInclude Include="..\..\Source\Input\KeyCode.h" />
     <ClInclude Include="..\..\Source\Input\RawInput.h" />

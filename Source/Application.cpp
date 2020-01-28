@@ -75,8 +75,7 @@ WPARAM Application::Run()
 		Input::NextFrame();
 		TranslateMessage(&msg);
 		DispatchMessage(&msg);
-
-		
+		game->Update();
 	}
 
 	return msg.wParam;
