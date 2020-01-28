@@ -1,4 +1,16 @@
 #include "EventManager.h"
+#include "EventMapper.h"
+#include "Event.h"
+
+EventManager* EventManager::instance;
+
+EventManager* EventManager::Instance()
+{
+	if (instance)
+		return instance;
+	else
+		return instance = new EventManager();
+}
 
 void EventManager::RegisterMapper(HWND hWnd, EventMapper* em)
 {
@@ -8,29 +20,18 @@ void EventManager::RegisterMapper(HWND hWnd, EventMapper* em)
 
 void EventManager::RegisterEvent(EventType t, IEventData* data)
 {
-	//Create new temp event
-	//temp goes to event mapper HandleEvent and then passed to EventHandler handle
-	//freeing memory in handle, HandleEvent(failed case), this function(failed case)
 	IEvent* temp = new IEvent();
 	temp->SetData(data);
-
-	//When proper data is not set
-	if (temp->GetEventType() == EventType::NO_TYPE)
-	{
-		delete temp;
-		return;
-	}
 
 	for (auto it = m_registeredEventMapper.begin(); it != m_registeredEventMapper.end(); it++)
 	{
 		if ((*it)->GetHWND() == data->hWnd)
 		{
 			(*it)->HandleEvent(t, temp);
+			delete temp;
 			return;
 		}
 	}
-
-	delete temp;
 }
 
 void EventManager::CleanMapper()

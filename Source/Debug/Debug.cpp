@@ -1,4 +1,6 @@
 #include "Debug.h"
+#include "../Event/KeyEvent.h"
+#include "../Event/MouseEvent.h"
 
 std::unordered_map<KeyCode, std::string> Debug::_enumStringMap;
 void Debug::Init()

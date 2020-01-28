@@ -1,5 +1,6 @@
 #include <windowsx.h>
 #include "RawInput.h"
+#include "../Event/EventManager.h"
 #include "../Event/MouseEvent.h"
 #include "../Event/KeyEvent.h"
 #include "../Debug/Debug.h"
@@ -12,10 +13,12 @@ void SetKeyData(KeyEventData& _data, HWND hWnd, WPARAM wParam, LPARAM lParam)
 }
 void SetMouseData(MouseEventData& _mData, HWND hWnd, WPARAM wParam, LPARAM lParam)
 {
+	_mData.hWnd = hWnd;
 	_mData.screenX = GET_X_LPARAM(lParam);
 	_mData.screenY = GET_Y_LPARAM(lParam);
 	_mData.windowX = GET_X_LPARAM(lParam);
 	_mData.windowY = GET_Y_LPARAM(lParam);
+	
 	/*_mData.isLeftDown = wParam & MK_LBUTTON;
 	_mData.isRightDown = wParam & MK_RBUTTON;
 	_mData.isMiddleDown = wParam & MK_MBUTTON;*/
@@ -23,22 +26,20 @@ void SetMouseData(MouseEventData& _mData, HWND hWnd, WPARAM wParam, LPARAM lPara
 
 LRESULT RawInput::WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {
-	//static InputEventData _data;
-	//static MouseEventData _mData;
+	static KeyEventData _kData;
+	static MouseEventData _mData;
 
 	//will call event manager register
 	switch (msg)
 	{
 	case WM_LBUTTONDOWN:
-		
-		//SetInputData(_data, hWnd, wParam, lParam);
-		//SetMouseData(_mData, hWnd, wParam, lParam);
-		//_mData.mouseButtonCode = KeyCode::Mouse0;
-		//_data.eventType = EventType::MouseEvent;
+		SetMouseData(_mData, hWnd, wParam, lParam);
+		_mData.button = KeyCode::Mouse0;
+		EventManager::Instance()->RegisterEvent(_mData.type, &_mData);
 		break;
 	case WM_KEYDOWN:
-		//SetInputData(_data, hWnd, wParam, lParam);
-		//_data.eventType = EventType::KeyEvent;
+		SetKeyData(_kData, hWnd, wParam, lParam);
+		EventManager::Instance()->RegisterEvent(_kData.type, &_kData);
 		break;
 	case WM_CLOSE:
 		PostQuitMessage(0);

@@ -1,6 +1,8 @@
 #pragma once
 #include<Windows.h>
 
+class EventMapper;
+
 class Application
 {
 private:
@@ -8,6 +10,7 @@ private:
 	HWND hWnd;
 	MSG msg;
 	LPCTSTR className;
+	EventMapper* mapper;
 
 public:
 	Application(HINSTANCE);

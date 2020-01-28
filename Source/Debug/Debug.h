@@ -1,9 +1,14 @@
+#if _DEBUG
 #pragma once
 #include <iostream>
 #include <string>
 #include <unordered_map>
-#include "../Event/KeyEvent.h"
-#include "../Event/MouseEvent.h"
+#include "../Input/KeyCode.h"
+#include "../Event/EventType.h"
+
+class IEventData;
+class KeyEventData;
+class MouseEventData;
 
 class Debug
 {
@@ -18,3 +23,4 @@ public:
 private:
 	static std::unordered_map<KeyCode, std::string> _enumStringMap;
 };
+#endif
