@@ -4,8 +4,12 @@
 
 void Game::Update()
 {
-	if (Input::GetMouseButtonUp(KeyCode::Mouse0))
+	if (Input::GetMouseButton(KeyCode::Mouse0))
 	{
-		Debug::Log("UP");
+		Debug::Log("Mouse 0 hold");
+	}
+	if (Input::GetKeyDown(KeyCode::A))
+	{
+		Debug::Log("A pressed");
 	}
 }

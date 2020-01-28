@@ -1,9 +1,12 @@
 #include <windowsx.h>
 #include "RawInput.h"
 #include "Input.h"
+#include "../Renderer/Renderer.h"
 #include "../Event/EventManager.h"
+
 #include "../Event/MouseEvent.h"
 #include "../Event/KeyEvent.h"
+
 #include "../Debug/Debug.h"
 
 void SetKeyData(KeyEventData& _data, HWND hWnd, WPARAM wParam, LPARAM lParam)
@@ -29,6 +32,8 @@ LRESULT RawInput::WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {
 	static KeyEventData _kData;
 	static MouseEventData _mData;
+	HDC hdc;
+	PAINTSTRUCT ps;
 
 	//will call event manager register
 	switch (msg)
@@ -56,6 +61,11 @@ LRESULT RawInput::WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 	case WM_KEYUP:
 		SetKeyData(_kData, hWnd, wParam, lParam);
 		Input::KeyReleased(_kData.key);
+		break;
+	case WM_PAINT:
+		hdc = BeginPaint(hWnd, &ps);
+		Renderer::Instance()->Render(hdc);
+		EndPaint(hWnd, &ps);
 		break;
 	case WM_CLOSE:
 		PostQuitMessage(0);
