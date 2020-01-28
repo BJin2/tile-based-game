@@ -54,7 +54,7 @@ void Input::KeyReleased(KeyCode key)
 	{
 		if (key == *it)
 		{
-			instance->hold.push_back(key);
+			instance->released.push_back(key);
 			instance->hold.erase(instance->hold.begin() + i);
 			return;
 		}
