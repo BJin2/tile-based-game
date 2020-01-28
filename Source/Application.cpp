@@ -2,6 +2,8 @@
 #include "Input/RawInput.h"
 #include "Debug/Debug.h"
 #include "Event/EventMapper.h"
+#include "Input/Input.h"
+
 #include "Event/EventManager.h"
 #include "Event/KeyEvent.h"
 
@@ -58,12 +60,7 @@ bool Application::CreateAppWindow(LPCWSTR title, int x, int y, int width, int he
 	EventManager::Instance()->RegisterMapper(hWnd, mapper);
 	mapper->SetOnEvent([](const IEvent* e)->void
 		{
-			IEventData* ed = e->GetData();
-			KeyEventData* ked = static_cast<KeyEventData*>(ed);
-			//const KeyEvent* temp = EventConverter::ToKeyEvent(e);
-			////KeyEvent* k = const_cast<KeyEvent*>(e);
-			//Debug::Log("Window1 key pressed");
-			std::cout << "Key Pressed : " << Debug::KeyCodeToString(ked->key) << std::endl;
+			KeyEventData* ked = static_cast<KeyEventData*>(e->GetData());
 		}, KeyEventData::type);
 
 	return true;
@@ -73,8 +70,14 @@ WPARAM Application::Run()
 {
 	while (GetMessage(&msg, NULL, 0, 0))
 	{
+		Input::NextFrame();
 		TranslateMessage(&msg);
 		DispatchMessage(&msg);
+
+		if (Input::GetKey(KeyCode::Mouse0))
+		{
+			Debug::Log("Space hold");
+		}
 	}
 
 	return msg.wParam;
