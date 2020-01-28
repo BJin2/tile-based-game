@@ -22,10 +22,10 @@ void Input::NextFrame()
 	instance->pressed.clear();
 	instance->released.clear();
 
-	for (auto it = instance->hold.begin(); it != instance->hold.end(); it++)
-	{
-		Debug::Log(Debug::KeyCodeToString(*it));
-	}
+	//for (auto it = instance->hold.begin(); it != instance->hold.end(); it++)
+	//{
+	//	Debug::Log(Debug::KeyCodeToString(*it));
+	//}
 }
 
 void Input::KeyPressed(KeyCode key)
@@ -43,7 +43,7 @@ void Input::KeyPressed(KeyCode key)
 
 void Input::KeyReleased(KeyCode key)
 {
-	Debug::Log("Release");
+	//Debug::Log("Release");
 	int i = 0;
 	for (auto it = instance->pressed.begin(); it != instance->pressed.end(); it++, i++)
 	{

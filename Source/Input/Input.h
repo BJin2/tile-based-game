@@ -6,17 +6,20 @@
 class Input
 {
 private :
+	friend class RawInput;
+
+	static Input* instance;
+	static Input* Instance();
+
 	std::vector<KeyCode> pressed;
 	std::vector<KeyCode> hold;
 	std::vector<KeyCode> released;
-
-	static Input* instance;
-
-public :
-	static Input* Instance();
-	static void NextFrame();
+	
 	static void KeyPressed(KeyCode key);
 	static void KeyReleased(KeyCode key);
+
+public :
+	static void NextFrame();
 
 	static bool GetKeyDown(KeyCode key);
 	static bool GetKeyUp(KeyCode key);

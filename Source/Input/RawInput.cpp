@@ -37,7 +37,7 @@ LRESULT RawInput::WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 		SetMouseData(_mData, hWnd, wParam, lParam);
 		_mData.button = KeyCode::Mouse0;
 		Input::KeyPressed(KeyCode::Mouse0);
-		EventManager::Instance()->RegisterEvent(_mData.type, &_mData);
+		//EventManager::Instance()->RegisterEvent(_mData.type, &_mData);
 		break;
 	case WM_LBUTTONUP:
 		Input::KeyReleased(KeyCode::Mouse0);
@@ -51,7 +51,7 @@ LRESULT RawInput::WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 	case WM_KEYDOWN:
 		SetKeyData(_kData, hWnd, wParam, lParam);
 		Input::KeyPressed(_kData.key);
-		EventManager::Instance()->RegisterEvent(_kData.type, &_kData);
+		//EventManager::Instance()->RegisterEvent(_kData.type, &_kData);
 		break;
 	case WM_KEYUP:
 		SetKeyData(_kData, hWnd, wParam, lParam);
