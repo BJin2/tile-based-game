@@ -153,7 +153,6 @@
   <ItemGroup>
     <ClCompile Include="..\..\Source\Application.cpp" />
     <ClCompile Include="..\..\Source\Debug\Debug.cpp" />
-    <ClCompile Include="..\..\Source\Event\EventConverter.cpp" />
     <ClCompile Include="..\..\Source\Event\EventManager.cpp" />
     <ClCompile Include="..\..\Source\Event\EventMapper.cpp" />
     <ClCompile Include="..\..\Source\Event\EventType.cpp" />
@@ -164,7 +163,6 @@
     <ClInclude Include="..\..\Source\Application.h" />
     <ClInclude Include="..\..\Source\Debug\Debug.h" />
     <ClInclude Include="..\..\Source\Event\Event.h" />
-    <ClInclude Include="..\..\Source\Event\EventConverter.h" />
     <ClInclude Include="..\..\Source\Event\EventHandler.h" />
     <ClInclude Include="..\..\Source\Event\EventManager.h" />
     <ClInclude Include="..\..\Source\Event\EventMapper.h" />

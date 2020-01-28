@@ -1,6 +1,11 @@
 #pragma once
+#include <Windows.h>
 #include <vector>
-#include "EventMapper.h"
+#include "EventType.h"
+
+class EventMapper;
+class IEvent;
+class IEventData;
 
 class EventManager
 {

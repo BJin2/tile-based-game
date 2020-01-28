@@ -1,8 +1,9 @@
 #pragma once
 #include <Windows.h>
 #include <unordered_map>
-#include "Event.h"
-#include "EventHandler.h"
+#include "EventType.h"
+class IEvent;
+class EventHandler;
 
 class EventMapper
 {

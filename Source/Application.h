@@ -1,6 +1,7 @@
 #pragma once
 #include<Windows.h>
-#include "Event/EventMapper.h"
+
+class EventMapper;
 
 class Application
 {

@@ -1,6 +1,8 @@
 #include "EventManager.h"
-EventManager* EventManager::instance;
+#include "EventMapper.h"
+#include "Event.h"
 
+EventManager* EventManager::instance;
 
 EventManager* EventManager::Instance()
 {

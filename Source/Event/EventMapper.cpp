@@ -1,4 +1,6 @@
 #include "EventMapper.h"
+#include "Event.h"
+#include "EventHandler.h"
 
 void EventMapper::SetOnEvent(void(*passedPointer)(const IEvent* e), EventType t)
 {

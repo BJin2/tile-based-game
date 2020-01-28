@@ -39,7 +39,6 @@ LRESULT RawInput::WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 		break;
 	case WM_KEYDOWN:
 		SetKeyData(_kData, hWnd, wParam, lParam);
-		Debug::Log("Key");
 		EventManager::Instance()->RegisterEvent(_kData.type, &_kData);
 		break;
 	case WM_CLOSE:

@@ -1,11 +1,9 @@
-#ifdef _DEBUG
-	#include "Debug/Debug.h"
-#endif
-
 #include "Application.h"
 #include "Input/RawInput.h"
+#include "Debug/Debug.h"
+#include "Event/EventMapper.h"
 #include "Event/EventManager.h"
-#include "Event/EventConverter.h"
+#include "Event/KeyEvent.h"
 
 Application::Application(HINSTANCE _hInstance)
 {
@@ -60,10 +58,12 @@ bool Application::CreateAppWindow(LPCWSTR title, int x, int y, int width, int he
 	EventManager::Instance()->RegisterMapper(hWnd, mapper);
 	mapper->SetOnEvent([](const IEvent* e)->void
 		{
-			const KeyEvent* temp = EventConverter::ToKeyEvent(e);
-			//KeyEvent* k = const_cast<KeyEvent*>(e);
-			Debug::Log("Window1 key pressed");
-			std::cout << "Key Pressed : " << Debug::KeyCodeToString(temp->GetKeyCode()) << std::endl;
+			IEventData* ed = e->GetData();
+			KeyEventData* ked = static_cast<KeyEventData*>(ed);
+			//const KeyEvent* temp = EventConverter::ToKeyEvent(e);
+			////KeyEvent* k = const_cast<KeyEvent*>(e);
+			//Debug::Log("Window1 key pressed");
+			std::cout << "Key Pressed : " << Debug::KeyCodeToString(ked->key) << std::endl;
 		}, KeyEventData::type);
 
 	return true;
