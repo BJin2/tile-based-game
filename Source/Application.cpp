@@ -74,9 +74,9 @@ WPARAM Application::Run()
 		TranslateMessage(&msg);
 		DispatchMessage(&msg);
 
-		if (Input::GetKeyDown(KeyCode::A))
+		if (Input::GetKey(KeyCode::Space))
 		{
-			Debug::Log("A pressed");
+			Debug::Log("Space hold");
 		}
 	}
 
