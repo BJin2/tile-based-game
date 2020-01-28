@@ -74,7 +74,7 @@ WPARAM Application::Run()
 		TranslateMessage(&msg);
 		DispatchMessage(&msg);
 
-		if (Input::GetKey(KeyCode::Space))
+		if (Input::GetKey(KeyCode::Mouse0))
 		{
 			Debug::Log("Space hold");
 		}
