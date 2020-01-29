@@ -1,6 +1,8 @@
 #include "Renderer.h"
 #include "../Game/Tile/Grid.h"
 
+#include "../Debug/Debug.h"
+
 Renderer* Renderer::instance;
 Renderer* Renderer::Instance()
 {
@@ -21,8 +23,9 @@ void Renderer::Render(const HDC& hdc)
 	{
 		for (int j = 0; j < grid->GetHeight(); j++)
 		{
+			std::cout << i << ", " << j << std::endl;
 			Cell* cur = grid->GetCell(i, j);
-			for (int x = cur->x; x < (cur->x + cur->width); x++)
+			/*for (int x = cur->x; x < (cur->x + cur->width); x++)
 			{
 				for (int y = cur->y; y < (cur->y + cur->height); y++)
 				{
@@ -37,8 +40,8 @@ void Renderer::Render(const HDC& hdc)
 					}
 					SetPixel(hdc, x + (16*i), y + (16*j), c);
 				}
-			}
-			//Rectangle(hdc, cur->x * 16, cur->y * 16, ((cur->x * 16) + cur->width), ((cur->y*16) + cur->height));
+			}*/
+			Rectangle(hdc, cur->x * 16, cur->y * 16, ((cur->x * 16) + cur->width), ((cur->y*16) + cur->height));
 		}
 	}
 	//SetPixel(hdc, 10, 10, RGB(0, 255, 0));
