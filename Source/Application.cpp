@@ -16,6 +16,7 @@ Application::Application(HINSTANCE _hInstance)
 	msg = MSG();
 	mapper = new EventMapper();
 	game = new Game();
+	game->Start();
 }
 
 bool Application::InitializeWindow()
@@ -50,7 +51,9 @@ bool Application::CreateAppWindow(LPCWSTR title, int x, int y, int width, int he
 		return false;
 
 	//Create windows
-	this->hWnd = CreateWindow(className, className, WS_OVERLAPPEDWINDOW, x, y, width, height, NULL, (HMENU)NULL, hInstance, NULL);
+	RECT rc = { 0, 0, width, height };
+	AdjustWindowRect(&rc, WS_OVERLAPPEDWINDOW, NULL);
+	this->hWnd = CreateWindow(className, className, WS_OVERLAPPEDWINDOW, x, y, rc.right - rc.left, rc.bottom - rc.top, NULL, (HMENU)NULL, hInstance, NULL);
 	if (!this->hWnd)
 		return false;
 
@@ -70,13 +73,14 @@ bool Application::CreateAppWindow(LPCWSTR title, int x, int y, int width, int he
 
 WPARAM Application::Run()
 {
-	game->Start();
+//	game->Start();
 	while (GetMessage(&msg, NULL, 0, 0))
 	{
 		Input::NextFrame();
 		TranslateMessage(&msg);
 		DispatchMessage(&msg);
 		game->Update();
+		//InvalidateRect(hWnd, NULL, FALSE);
 	}
 
 	return msg.wParam;

@@ -12,9 +12,9 @@ void Game::Start()
 
 void Game::Update()
 {
-	if (Input::GetMouseButton(KeyCode::Mouse0))
+	if (Input::GetMouseButtonDown(KeyCode::Mouse0))
 	{
-		Debug::Log("Mouse 0 hold");
+		grid->GetCell(2, 2)->resource = 30;
 	}
 	if (Input::GetKeyDown(KeyCode::A))
 	{

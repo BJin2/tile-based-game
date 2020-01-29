@@ -14,8 +14,8 @@ Grid::Grid(unsigned short w, unsigned short h)
 			tile[i][j].resource = 10;
 			tile[i][j].x = i;
 			tile[i][j].y = j;
-			tile[i][j].width = 10;
-			tile[i][j].height = 10;
+			tile[i][j].width = 16;
+			tile[i][j].height = 16;
 		}
 	}
 }

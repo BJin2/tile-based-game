@@ -26,14 +26,23 @@ void Renderer::Render(const HDC& hdc)
 			{
 				for (int y = cur->y; y < (cur->y + cur->height); y++)
 				{
-					SetPixel(hdc, x, y, RGB(255, 0, 0));
+					COLORREF c;
+					if (cur->resource > 10)
+					{
+						c = RGB(255, 0, 0);
+					}
+					else
+					{
+						c = RGB(0, 255, 0);
+					}
+					SetPixel(hdc, x + (16*i), y + (16*j), c);
 				}
 			}
-			Rectangle(hdc, cur->x, cur->y, (cur->x + cur->width), (cur->y + cur->height));
+			//Rectangle(hdc, cur->x * 16, cur->y * 16, ((cur->x * 16) + cur->width), ((cur->y*16) + cur->height));
 		}
 	}
-	SetPixel(hdc, 10, 10, RGB(0, 255, 0));
-	MoveToEx(hdc, 50, 50, NULL);
-	LineTo(hdc, 300, 90);
-	Rectangle(hdc, 50, 100, 200, 180);
+	//SetPixel(hdc, 10, 10, RGB(0, 255, 0));
+	//MoveToEx(hdc, 50, 50, NULL);
+	//LineTo(hdc, 300, 90);
+	//Rectangle(hdc, 50, 100, 200, 180);
 }
