@@ -40,7 +40,7 @@ void Renderer::SetGrid(Grid* _grid)
 void Renderer::Render(const PAINTSTRUCT& ps)
 {
 	Debug::Log("Rendering");
-
+	
 	int numCell_x = (ps.rcPaint.right - ps.rcPaint.left) / grid->cell_width;
 	int numCell_y = (ps.rcPaint.bottom - ps.rcPaint.top) / grid->cell_height;
 

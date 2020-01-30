@@ -73,6 +73,7 @@ bool Application::CreateAppWindow(LPCWSTR title, int x, int y, int width, int he
 
 WPARAM Application::Run()
 {
+	game->SetOwner(hWnd);
 //	game->Start();
 	while (GetMessage(&msg, NULL, 0, 0))
 	{
