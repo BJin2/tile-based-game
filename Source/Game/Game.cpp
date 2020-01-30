@@ -1,3 +1,4 @@
+#include <time.h>
 #include "Game.h"
 #include "Tile/Grid.h"
 #include "../Input/Input.h"
@@ -11,13 +12,24 @@ void Game::SetOwner(HWND _hWnd)
 
 void Game::Start()
 {
+	srand(time(NULL));
 	grid = new Grid(16, 16);
+	Mix();
 	Renderer::Instance()->SetGrid(grid);
+	scanMode = true;
+	max_scan = 6;
+	max_extract = 3;
 }
 
 void Game::Update()
 {
+	if (Input::GetKeyDown(KeyCode::M))
+	{
+		scanMode = !scanMode;
+	}
+
 	Vector2 mousePos = *(Input::GetMousePosition());
+	
 	int selected_x = -1;
 	int selected_y = -1;
 
@@ -31,7 +43,6 @@ void Game::Update()
 			{
 				selected_x = i;
 				selected_y = j;
-				std::cout << selected_x << ", " << selected_y << std::endl;
 				break;
 			}
 		}
@@ -46,7 +57,15 @@ void Game::Update()
 		//Calculate cell index based on mouse position
 		int x = mousePos.x / grid->GetWidth();
 		int y = mousePos.y / grid->GetHeight();
-		
+
+		if (Input::GetMouseButtonDown(0))
+		{
+			if (scanMode)
+				Scan(x, y);
+			else
+				resource += Extract(x, y);
+		}
+
 		//if it's different from previous selected cell index
 		if (x != selected_x || y != selected_y)
 		{
@@ -78,4 +97,77 @@ void Game::Update()
 			InvalidateRect(hWnd, &redrawArea2, true);
 		}
 	}
+}
+
+int Game::Extract(int x, int y)
+{
+	if (max_extract == 0)
+		return 0;
+
+	int r = grid->resource_amount[grid->GetCell(x, y)->resource_index];
+	grid->GetCell(x, y)->resource_index = 3;
+
+	RoundGrid([](int i, int j, Game* g)->void 
+		{
+			Cell* cell = g->GetGrid()->GetCell(i, j);
+			if(cell->resource_index < 3)
+				cell->resource_index += 1;
+		}
+	, x, y, 2);
+	Scan(x, y);
+	max_extract--;
+	return r;
+}
+
+void Game::Scan(int x, int y)
+{
+	if (max_scan == 0)
+		return;
+	RoundGrid([](int i, int j, Game* g)->void {g->GetGrid()->GetCell(i, j)->hidden = false; }, x, y, 1);
+	max_scan--;
+}
+
+void Game::Mix()
+{
+	for (int i = 0; i < max_num_maxResource; i++)
+	{
+		int random_x = (rand() % grid->GetWidth());
+		int random_y = (rand() % grid->GetHeight());
+		RoundGrid([](int i, int j, Game* g) 
+			{
+				if (g->GetGrid()->GetCell(i, j)->resource_index > 2)
+					g->GetGrid()->GetCell(i, j)->resource_index = 2;
+			}, random_x, random_y, 2);
+		RoundGrid([](int i, int j, Game* g)
+			{
+				if (g->GetGrid()->GetCell(i, j)->resource_index > 1)
+					g->GetGrid()->GetCell(i, j)->resource_index = 1;
+			}, random_x, random_y, 1);
+		grid->GetCell(random_x, random_y)->resource_index = 0;
+	}
+}
+
+void Game::RoundGrid(void(*passed)(int i, int j, Game* g), int x, int y, int thickness)
+{
+	unsigned short start_x = (x-thickness < 0 ? 0 : x - thickness);
+	unsigned short end_x = (x + thickness >= grid->GetWidth() ? grid->GetWidth()-1 : x + thickness);
+	unsigned short start_y = (y-thickness < 0 ? 0 : y - thickness);
+	unsigned short end_y = (y + thickness >= grid->GetHeight() ? grid->GetHeight() - 1 : y + thickness);
+
+	std::cout << start_x << ", " << end_x << std::endl;
+
+	for (unsigned short i = start_x; i <= end_x; i++)
+	{
+		for (unsigned short j = start_y; j <= end_y; j++)
+		{
+			passed(i, j, this);
+		}
+	}
+	RECT redrawArea;
+	SetRect(&redrawArea,
+		start_x * grid->GetWidth(),
+		start_y * grid->GetHeight(),
+		(end_x + 1) * grid->GetWidth(),
+		(end_y + 1) * grid->GetHeight());
+	InvalidateRect(hWnd, &redrawArea, true);
 }

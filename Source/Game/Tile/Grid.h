@@ -1,4 +1,6 @@
 #pragma once
+#include<Windows.h>
+
 struct Cell
 {
 	unsigned short x;

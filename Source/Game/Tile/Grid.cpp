@@ -1,4 +1,5 @@
 #include"Grid.h"
+#include <Windows.h>
 #include <iostream>
 
 Grid::Grid(unsigned short w, unsigned short h)
@@ -13,7 +14,6 @@ Grid::Grid(unsigned short w, unsigned short h)
 		for (int j = 0; j < tile_height; j++)
 		{
 			tile[i][j].resource_index = 3;
-			//std::cout << tile[i][j].resource << std::endl;
 			tile[i][j].x = i;
 			tile[i][j].y = j;
 			tile[i][j].width = cell_width;
