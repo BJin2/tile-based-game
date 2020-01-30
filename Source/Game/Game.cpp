@@ -114,6 +114,9 @@ int Game::Extract(int x, int y)
 				cell->resource_index += 1;
 		}
 	, x, y, 2);
+	//number of scan should not change when extracting
+	//adding 1 before scanning in extract mode so that total number does not change
+	max_scan++;
 	Scan(x, y);
 	max_extract--;
 	return r;
