@@ -3,10 +3,11 @@
 
 struct MouseEventData : IEventData
 {
-	unsigned short screenX;
-	unsigned short screenY;
-	unsigned short windowX;
-	unsigned short windowY;
+	short screenX;
+	short screenY;
+
+	short windowX;
+	short windowY;
 
 	// TODO mouse button check
 

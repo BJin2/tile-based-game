@@ -2,7 +2,6 @@
 #include "../Debug/Debug.h"
 
 Input* Input::instance;
-
 Input* Input::Instance()
 {
 	if (instance)
@@ -22,10 +21,10 @@ void Input::NextFrame()
 	instance->pressed.clear();
 	instance->released.clear();
 
-	for (auto it = instance->hold.begin(); it != instance->hold.end(); it++)
-	{
-		Debug::Log(Debug::KeyCodeToString(*it));
-	}
+	//for (auto it = instance->hold.begin(); it != instance->hold.end(); it++)
+	//{
+	//	Debug::Log(Debug::KeyCodeToString(*it));
+	//}
 }
 
 void Input::KeyPressed(KeyCode key)
@@ -40,10 +39,9 @@ void Input::KeyPressed(KeyCode key)
 	}
 	instance->pressed.push_back(key);
 }
-
 void Input::KeyReleased(KeyCode key)
 {
-	Debug::Log("Release");
+	//Debug::Log("Release");
 	int i = 0;
 	for (auto it = instance->pressed.begin(); it != instance->pressed.end(); it++, i++)
 	{
@@ -67,6 +65,24 @@ void Input::KeyReleased(KeyCode key)
 	}
 }
 
+void Input::MousePressed(KeyCode button)
+{
+	KeyPressed(button);
+	
+}
+void Input::MouseReleased(KeyCode button)
+{
+	KeyReleased(button);
+}
+void Input::MouseMoved(unsigned short x, unsigned short y)
+{
+	if (!instance->mousePosition)
+	{
+		instance->mousePosition = new Vector2();
+	}
+	instance->mousePosition->x = x;
+	instance->mousePosition->y = y;
+}
 
 bool Input::GetKeyDown(KeyCode key)
 {
@@ -98,17 +114,75 @@ bool Input::GetKey(KeyCode key)
 	return false;
 }
 
-bool Input::GetMouseButtonDown(KeyCode button)
+bool Input::GetMouseButtonDown(int button)
 {
-	return GetKeyDown(button);
+	KeyCode b;
+	switch (button)
+	{
+	case 0:
+		b = KeyCode::Mouse0;
+		break;
+	case 1:
+		b = KeyCode::Mouse1;
+		break;
+	case 2:
+		b = KeyCode::Mouse2;
+		break;
+	default:
+		b = KeyCode::NO_CODE;
+		break;
+	}
+	
+	return GetKeyDown(b);
 }
 
-bool Input::GetMouseButtonUp(KeyCode button)
+bool Input::GetMouseButtonUp(int button)
 {
-	return GetKeyUp(button);
+	KeyCode b;
+	switch (button)
+	{
+	case 0:
+		b = KeyCode::Mouse0;
+		break;
+	case 1:
+		b = KeyCode::Mouse1;
+		break;
+	case 2:
+		b = KeyCode::Mouse2;
+		break;
+	default:
+		b = KeyCode::NO_CODE;
+		break;
+	}
+	return GetKeyUp(b);
 }
 
-bool Input::GetMouseButton(KeyCode button)
+bool Input::GetMouseButton(int button)
 {
-	return GetKey(button);
+	KeyCode b;
+	switch (button)
+	{
+	case 0:
+		b = KeyCode::Mouse0;
+		break;
+	case 1:
+		b = KeyCode::Mouse1;
+		break;
+	case 2:
+		b = KeyCode::Mouse2;
+		break;
+	default:
+		b = KeyCode::NO_CODE;
+		break;
+	}
+	return GetKey(b);
+}
+
+const Vector2* Input::GetMousePosition()
+{
+	if (!instance->mousePosition)
+	{
+		instance->mousePosition = new Vector2();
+	}
+	return instance->mousePosition;
 }

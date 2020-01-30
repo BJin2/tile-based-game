@@ -28,6 +28,15 @@
     <Filter Include="Source Files\Event\Resolver">
       <UniqueIdentifier>{78d6970c-a785-4d73-96c3-de7faa9b68f8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Game">
+      <UniqueIdentifier>{b1553caf-3799-4df4-873e-9b3bbf8b6423}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Renderer">
+      <UniqueIdentifier>{6b0110c8-610b-44f4-9a64-421ef1f12808}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Game\Tile">
+      <UniqueIdentifier>{b51ec060-0d84-4977-a918-3b7e93d92f42}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\Source\main.cpp">
@@ -53,6 +62,15 @@
     </ClCompile>
     <ClCompile Include="..\..\Source\Input\Input.cpp">
       <Filter>Source Files\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Game\Game.cpp">
+      <Filter>Source Files\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Renderer\Renderer.cpp">
+      <Filter>Source Files\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Game\Tile\Grid.cpp">
+      <Filter>Source Files\Game\Tile</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -91,6 +109,15 @@
     </ClInclude>
     <ClInclude Include="..\..\Source\Input\Input.h">
       <Filter>Source Files\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Game\Game.h">
+      <Filter>Source Files\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Renderer\Renderer.h">
+      <Filter>Source Files\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Game\Tile\Grid.h">
+      <Filter>Source Files\Game\Tile</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

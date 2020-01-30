@@ -2,6 +2,7 @@
 #include<Windows.h>
 
 class EventMapper;
+class Game;
 
 class Application
 {
@@ -11,6 +12,7 @@ private:
 	MSG msg;
 	LPCTSTR className;
 	EventMapper* mapper;
+	Game* game;
 
 public:
 	Application(HINSTANCE);

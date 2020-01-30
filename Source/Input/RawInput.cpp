@@ -1,9 +1,12 @@
 #include <windowsx.h>
 #include "RawInput.h"
 #include "Input.h"
+#include "../Renderer/Renderer.h"
 #include "../Event/EventManager.h"
+
 #include "../Event/MouseEvent.h"
 #include "../Event/KeyEvent.h"
+
 #include "../Debug/Debug.h"
 
 void SetKeyData(KeyEventData& _data, HWND hWnd, WPARAM wParam, LPARAM lParam)
@@ -29,6 +32,8 @@ LRESULT RawInput::WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {
 	static KeyEventData _kData;
 	static MouseEventData _mData;
+	HDC hdc;
+	PAINTSTRUCT ps;
 
 	//will call event manager register
 	switch (msg)
@@ -36,26 +41,59 @@ LRESULT RawInput::WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 	case WM_LBUTTONDOWN:
 		SetMouseData(_mData, hWnd, wParam, lParam);
 		_mData.button = KeyCode::Mouse0;
-		Input::KeyPressed(KeyCode::Mouse0);
-		EventManager::Instance()->RegisterEvent(_mData.type, &_mData);
+		//Debug::Log(_mData);
+		Input::MousePressed(KeyCode::Mouse0);
+		Input::MouseMoved(_mData.screenX, _mData.screenY);
+		//EventManager::Instance()->RegisterEvent(_mData.type, &_mData);
 		break;
 	case WM_LBUTTONUP:
-		Input::KeyReleased(KeyCode::Mouse0);
-		break;
-	case WM_RBUTTONUP:
-		Input::KeyReleased(KeyCode::Mouse1);
+		SetMouseData(_mData, hWnd, wParam, lParam);
+		_mData.button = KeyCode::Mouse0;
+		Input::MouseReleased(KeyCode::Mouse0);
+		Input::MouseMoved(_mData.screenX, _mData.screenY);
 		break;
 	case WM_RBUTTONDOWN:
-		Input::KeyPressed(KeyCode::Mouse1);
+		SetMouseData(_mData, hWnd, wParam, lParam);
+		_mData.button = KeyCode::Mouse1;
+		Input::MousePressed(KeyCode::Mouse1);
+		Input::MouseMoved(_mData.screenX, _mData.screenY);
+		break;
+	case WM_RBUTTONUP:
+		SetMouseData(_mData, hWnd, wParam, lParam);
+		_mData.button = KeyCode::Mouse1;
+		Input::MouseReleased(KeyCode::Mouse1);
+		Input::MouseMoved(_mData.screenX, _mData.screenY);
+		break;
+	case WM_MBUTTONDOWN:
+		SetMouseData(_mData, hWnd, wParam, lParam);
+		_mData.button = KeyCode::Mouse2;
+		Input::MousePressed(KeyCode::Mouse2);
+		Input::MouseMoved(_mData.screenX, _mData.screenY);
+		break;
+	case WM_MBUTTONUP:
+		SetMouseData(_mData, hWnd, wParam, lParam);
+		_mData.button = KeyCode::Mouse2;
+		Input::MouseReleased(KeyCode::Mouse2);
+		Input::MouseMoved(_mData.screenX, _mData.screenY);
+		break;
+	case WM_MOUSEMOVE:
+		SetMouseData(_mData, hWnd, wParam, lParam);
+		//_mData.button = KeyCode::Mouse0;
+		Input::MouseMoved(_mData.screenX, _mData.screenY);
 		break;
 	case WM_KEYDOWN:
 		SetKeyData(_kData, hWnd, wParam, lParam);
 		Input::KeyPressed(_kData.key);
-		EventManager::Instance()->RegisterEvent(_kData.type, &_kData);
+		//EventManager::Instance()->RegisterEvent(_kData.type, &_kData);
 		break;
 	case WM_KEYUP:
 		SetKeyData(_kData, hWnd, wParam, lParam);
 		Input::KeyReleased(_kData.key);
+		break;
+	case WM_PAINT:
+		hdc = BeginPaint(hWnd, &ps);
+		Renderer::Instance()->Render(ps);
+		EndPaint(hWnd, &ps);
 		break;
 	case WM_CLOSE:
 		PostQuitMessage(0);

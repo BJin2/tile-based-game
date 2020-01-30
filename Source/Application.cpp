@@ -1,8 +1,9 @@
 #include "Application.h"
 #include "Input/RawInput.h"
+#include "Input/Input.h"
 #include "Debug/Debug.h"
 #include "Event/EventMapper.h"
-#include "Input/Input.h"
+#include "Game/Game.h"
 
 #include "Event/EventManager.h"
 #include "Event/KeyEvent.h"
@@ -14,6 +15,8 @@ Application::Application(HINSTANCE _hInstance)
 	className = TEXT("");
 	msg = MSG();
 	mapper = new EventMapper();
+	game = new Game();
+	game->Start();
 }
 
 bool Application::InitializeWindow()
@@ -30,7 +33,7 @@ bool Application::InitializeWindow()
 	wc.lpfnWndProc = RawInput::WndProc;
 	wc.lpszClassName = className;
 	wc.lpszMenuName = NULL;
-	wc.style = CS_HREDRAW | CS_VREDRAW;
+	wc.style = NULL;// CS_HREDRAW | CS_VREDRAW; // Window size fixed. Redraw flags not needed
 
 	//Register windows class
 	if (!RegisterClass(&wc))
@@ -48,7 +51,9 @@ bool Application::CreateAppWindow(LPCWSTR title, int x, int y, int width, int he
 		return false;
 
 	//Create windows
-	this->hWnd = CreateWindow(className, className, WS_OVERLAPPEDWINDOW, x, y, width, height, NULL, (HMENU)NULL, hInstance, NULL);
+	RECT rc = { 0, 0, width, height };
+	AdjustWindowRect(&rc, WS_OVERLAPPEDWINDOW, NULL);
+	this->hWnd = CreateWindow(className, className, WS_OVERLAPPED | WS_SYSMENU | WS_MINIMIZEBOX, x, y, rc.right - rc.left, rc.bottom - rc.top, NULL, (HMENU)NULL, hInstance, NULL);
 	if (!this->hWnd)
 		return false;
 
@@ -58,26 +63,25 @@ bool Application::CreateAppWindow(LPCWSTR title, int x, int y, int width, int he
 	Debug::Log("Created window");
 
 	EventManager::Instance()->RegisterMapper(hWnd, mapper);
-	mapper->SetOnEvent([](const IEvent* e)->void
+	/*mapper->SetOnEvent([](const IEvent* e)->void
 		{
 			KeyEventData* ked = static_cast<KeyEventData*>(e->GetData());
-		}, KeyEventData::type);
+		}, KeyEventData::type);*/
 
 	return true;
 }
 
 WPARAM Application::Run()
 {
+	game->SetOwner(hWnd);
+//	game->Start();
 	while (GetMessage(&msg, NULL, 0, 0))
 	{
 		Input::NextFrame();
 		TranslateMessage(&msg);
 		DispatchMessage(&msg);
-
-		if (Input::GetKey(KeyCode::Mouse0))
-		{
-			Debug::Log("Space hold");
-		}
+		game->Update();
+		//InvalidateRect(hWnd, NULL, FALSE);
 	}
 
 	return msg.wParam;
