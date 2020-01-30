@@ -14,7 +14,7 @@ void Game::Update()
 {
 	if (Input::GetMouseButtonDown(KeyCode::Mouse0))
 	{
-		grid->GetCell(2, 2)->resource = 30;
+		//grid->GetCell(2, 2)->resource = 30;
 	}
 	if (Input::GetKeyDown(KeyCode::A))
 	{
