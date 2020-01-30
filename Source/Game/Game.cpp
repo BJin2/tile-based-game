@@ -49,7 +49,7 @@ void Game::Update()
 
 		if (Input::GetMouseButtonDown(0))
 		{
-			Scan(x, y);
+			Extract(x, y);
 		}
 
 		//if it's different from previous selected cell index
@@ -87,7 +87,16 @@ void Game::Update()
 
 int Game::Extract(int x, int y)
 {
-	return 0;
+	int r = grid->resource_amount[grid->GetCell(x, y)->resource_index];
+	RoundGrid([](int i, int j, Game* g)->void 
+		{
+			Cell* cell = g->GetGrid()->GetCell(i, j);
+			if(cell->resource_index < 3)
+				cell->resource_index += 1;
+		}
+	, x, y, 2);
+	Scan(x, y);
+	return r;
 }
 
 void Game::Scan(int x, int y)
