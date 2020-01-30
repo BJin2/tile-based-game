@@ -1,4 +1,6 @@
 #pragma once
+#include<Windows.h>
+
 struct Cell
 {
 	unsigned short x;
@@ -31,6 +33,9 @@ public:
 	const unsigned short cell_height = 16;
 
 	const unsigned short resource_amount[4] = {1024, 512, 256, 64};
+
+	int Extract(int x, int y, HWND hWnd);
+	void Scan(int x, int y, HWND hWnd);
 
 	inline unsigned short GetWidth() { return tile_width; }
 	inline unsigned short GetHeight() { return tile_height; }

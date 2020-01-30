@@ -18,6 +18,7 @@ void Game::Start()
 void Game::Update()
 {
 	Vector2 mousePos = *(Input::GetMousePosition());
+	
 	int selected_x = -1;
 	int selected_y = -1;
 
@@ -46,7 +47,12 @@ void Game::Update()
 		//Calculate cell index based on mouse position
 		int x = mousePos.x / grid->GetWidth();
 		int y = mousePos.y / grid->GetHeight();
-		
+
+		if (Input::GetMouseButtonDown(0))
+		{
+			grid->Scan(x, y, hWnd);
+		}
+
 		//if it's different from previous selected cell index
 		if (x != selected_x || y != selected_y)
 		{
