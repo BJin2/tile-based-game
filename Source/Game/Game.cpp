@@ -12,13 +12,21 @@ void Game::SetOwner(HWND _hWnd)
 
 void Game::Start()
 {
-	srand(time(NULL));
+	//Create tile
 	grid = new Grid(16, 16);
 	Mix();
-	Renderer::Instance()->SetGrid(grid);
+
+	//Init
+	srand(time(NULL));
 	scanMode = true;
 	max_scan = 6;
 	max_extract = 3;
+
+	//Init renderer properties
+	Renderer::Instance()->SetGrid(grid);
+	RECT initRect;
+	SetRect(&initRect, 0, 0, grid->cell_width * grid->GetWidth(), grid->cell_height * grid->GetHeight());
+	InvalidateRect(hWnd, &initRect, true);
 }
 
 void Game::Update()
@@ -156,8 +164,6 @@ void Game::RoundGrid(void(*passed)(int i, int j, Game* g), int x, int y, int thi
 	unsigned short end_x = (x + thickness >= grid->GetWidth() ? grid->GetWidth()-1 : x + thickness);
 	unsigned short start_y = (y-thickness < 0 ? 0 : y - thickness);
 	unsigned short end_y = (y + thickness >= grid->GetHeight() ? grid->GetHeight() - 1 : y + thickness);
-
-	std::cout << start_x << ", " << end_x << std::endl;
 
 	for (unsigned short i = start_x; i <= end_x; i++)
 	{

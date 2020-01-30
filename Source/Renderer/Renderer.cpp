@@ -39,13 +39,21 @@ void Renderer::SetGrid(Grid* _grid)
 
 void Renderer::Render(const PAINTSTRUCT& ps)
 {
-	Debug::Log("Rendering");
+	if (!grid)
+		return;
+	unsigned short max_width = (grid->cell_width * grid->GetWidth());
+	unsigned short max_height = (grid->cell_height * grid->GetHeight());
+	RECT rect_tile = {
+		(ps.rcPaint.left < 0)? 0 : ps.rcPaint.left, 
+		(ps.rcPaint.top < 0)? 0 : ps.rcPaint.top, 
+		(ps.rcPaint.right > max_width)? max_width : ps.rcPaint.right, 
+		(ps.rcPaint.bottom > max_height)? max_height : ps.rcPaint.bottom};
 	
-	int numCell_x = (ps.rcPaint.right - ps.rcPaint.left) / grid->cell_width;
-	int numCell_y = (ps.rcPaint.bottom - ps.rcPaint.top) / grid->cell_height;
+	int numCell_x = (rect_tile.right - rect_tile.left) / grid->cell_width;
+	int numCell_y = (rect_tile.bottom - rect_tile.top) / grid->cell_height;
 
-	int start_x = ps.rcPaint.left / grid->cell_width;
-	int start_y = ps.rcPaint.top / grid->cell_height;
+	int start_x = rect_tile.left / grid->cell_width;
+	int start_y = rect_tile.top / grid->cell_height;
 
 	for (int i = start_x; i < start_x + numCell_x; i++)
 	{
