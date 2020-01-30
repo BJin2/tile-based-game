@@ -65,7 +65,8 @@ LRESULT RawInput::WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 		break;
 	case WM_PAINT:
 		hdc = BeginPaint(hWnd, &ps);
-		Renderer::Instance()->Render(hdc);
+		//std::cout << ps.rcPaint.bottom << std::endl;
+		Renderer::Instance()->Render(ps);
 		EndPaint(hWnd, &ps);
 		break;
 	case WM_CLOSE:

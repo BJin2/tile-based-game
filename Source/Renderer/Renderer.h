@@ -12,5 +12,5 @@ private :
 public :
 	static Renderer* Instance();
 	void SetGrid(Grid* _grid);
-	void Render(const HDC& hdc);
+	void Render(const PAINTSTRUCT& ps);
 };

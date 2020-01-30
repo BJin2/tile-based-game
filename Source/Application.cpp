@@ -33,7 +33,7 @@ bool Application::InitializeWindow()
 	wc.lpfnWndProc = RawInput::WndProc;
 	wc.lpszClassName = className;
 	wc.lpszMenuName = NULL;
-	wc.style = CS_HREDRAW | CS_VREDRAW;
+	wc.style = NULL;// CS_HREDRAW | CS_VREDRAW; // Window size fixed. Redraw flags not needed
 
 	//Register windows class
 	if (!RegisterClass(&wc))
@@ -53,7 +53,7 @@ bool Application::CreateAppWindow(LPCWSTR title, int x, int y, int width, int he
 	//Create windows
 	RECT rc = { 0, 0, width, height };
 	AdjustWindowRect(&rc, WS_OVERLAPPEDWINDOW, NULL);
-	this->hWnd = CreateWindow(className, className, WS_OVERLAPPED | WS_SYSMENU, x, y, rc.right - rc.left, rc.bottom - rc.top, NULL, (HMENU)NULL, hInstance, NULL);
+	this->hWnd = CreateWindow(className, className, WS_OVERLAPPED | WS_SYSMENU | WS_MINIMIZEBOX, x, y, rc.right - rc.left, rc.bottom - rc.top, NULL, (HMENU)NULL, hInstance, NULL);
 	if (!this->hWnd)
 		return false;
 
