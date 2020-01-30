@@ -25,7 +25,7 @@ Renderer::Renderer()
 	br_tile[4] = CreateSolidBrush(RGB(255, 100, 100));
 	br_tile[5] = CreateSolidBrush(RGB(255, 160, 100));
 	br_tile[6] = CreateSolidBrush(RGB(255, 255, 100));
-	br_tile[7] = CreateSolidBrush(RGB(230, 230, 230));
+	br_tile[7] = CreateSolidBrush(RGB(200, 200, 200));
 
 	
 	br_hidden = CreateSolidBrush(RGB(100, 100, 100));

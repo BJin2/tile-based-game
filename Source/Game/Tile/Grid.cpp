@@ -34,6 +34,10 @@ Grid::~Grid()
 	delete[] tile;
 }
 
+void Grid::Mix()
+{
+}
+
 int Grid::Extract(int x, int y, HWND hWnd)
 {
 	return 0;

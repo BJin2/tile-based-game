@@ -34,6 +34,7 @@ public:
 
 	const unsigned short resource_amount[4] = {1024, 512, 256, 64};
 
+	void Mix();
 	int Extract(int x, int y, HWND hWnd);
 	void Scan(int x, int y, HWND hWnd);
 
