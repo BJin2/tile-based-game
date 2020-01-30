@@ -32,7 +32,6 @@ void Game::Update()
 			{
 				selected_x = i;
 				selected_y = j;
-				std::cout << selected_x << ", " << selected_y << std::endl;
 				break;
 			}
 		}
@@ -93,10 +92,15 @@ int Game::Extract(int x, int y)
 
 void Game::Scan(int x, int y)
 {
-	unsigned short start_x = (x <= 0 ? 0 : x - 1);
-	unsigned short end_x = (x < grid->GetWidth() - 1 ? x + 1 : grid->GetWidth() - 1);
-	unsigned short start_y = (y <= 0 ? 0 : y - 1);
-	unsigned short end_y = (y < grid->GetHeight() - 1 ? y + 1 : grid->GetHeight() - 1);
+	RoundGrid([](int i, int j, Game* g)->void {g->GetGrid()->GetCell(i, j)->hidden = false; }, x, y, 1);
+}
+
+void Game::RoundGrid(void(*passed)(int i, int j, Game* g), int x, int y, int thickness)
+{
+	unsigned short start_x = (x-thickness < 0 ? 0 : x - thickness);
+	unsigned short end_x = (x + thickness >= grid->GetWidth() ? grid->GetWidth()-1 : x + thickness);
+	unsigned short start_y = (y-thickness < 0 ? 0 : y - thickness);
+	unsigned short end_y = (y + thickness >= grid->GetHeight() ? grid->GetHeight() - 1 : y + thickness);
 
 	std::cout << start_x << ", " << end_x << std::endl;
 
@@ -104,15 +108,14 @@ void Game::Scan(int x, int y)
 	{
 		for (unsigned short j = start_y; j <= end_y; j++)
 		{
-			std::cout << "Scan" << std::endl;
-			grid->GetCell(i,j)->hidden = false;
+			passed(i, j, this);
 		}
 	}
-	RECT redrawArea1;
-	SetRect(&redrawArea1,
+	RECT redrawArea;
+	SetRect(&redrawArea,
 		start_x * grid->GetWidth(),
 		start_y * grid->GetHeight(),
 		(end_x + 1) * grid->GetWidth(),
 		(end_y + 1) * grid->GetHeight());
-	InvalidateRect(hWnd, &redrawArea1, true);
+	InvalidateRect(hWnd, &redrawArea, true);
 }

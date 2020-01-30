@@ -13,8 +13,10 @@ private:
 
 	int Extract(int x, int y);
 	void Scan(int x, int y);
+	void RoundGrid(void(*passed)(int i, int j, Game* g), int x, int y, int thickness);
 
 public:
+	inline Grid* GetGrid() { return grid; }
 	void SetOwner(HWND _hWnd);
 	void Start();
 	void Update();
