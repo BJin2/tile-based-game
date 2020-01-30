@@ -88,6 +88,8 @@ void Game::Update()
 int Game::Extract(int x, int y)
 {
 	int r = grid->resource_amount[grid->GetCell(x, y)->resource_index];
+	grid->GetCell(x, y)->resource_index = 3;
+
 	RoundGrid([](int i, int j, Game* g)->void 
 		{
 			Cell* cell = g->GetGrid()->GetCell(i, j);
