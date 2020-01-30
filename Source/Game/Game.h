@@ -10,6 +10,9 @@ private:
 	Grid* grid;
 
 	int resource;
+	int max_scan;
+	int max_extract;
+	bool scanMode;
 
 	int Extract(int x, int y);
 	void Scan(int x, int y);

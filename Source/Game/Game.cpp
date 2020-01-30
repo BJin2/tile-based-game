@@ -16,10 +16,18 @@ void Game::Start()
 	grid = new Grid(16, 16);
 	Mix();
 	Renderer::Instance()->SetGrid(grid);
+	scanMode = true;
+	max_scan = 6;
+	max_extract = 3;
 }
 
 void Game::Update()
 {
+	if (Input::GetKeyDown(KeyCode::M))
+	{
+		scanMode = !scanMode;
+	}
+
 	Vector2 mousePos = *(Input::GetMousePosition());
 	
 	int selected_x = -1;
@@ -52,7 +60,10 @@ void Game::Update()
 
 		if (Input::GetMouseButtonDown(0))
 		{
-			Extract(x, y);
+			if (scanMode)
+				Scan(x, y);
+			else
+				resource += Extract(x, y);
 		}
 
 		//if it's different from previous selected cell index
@@ -90,6 +101,9 @@ void Game::Update()
 
 int Game::Extract(int x, int y)
 {
+	if (max_extract == 0)
+		return 0;
+
 	int r = grid->resource_amount[grid->GetCell(x, y)->resource_index];
 	grid->GetCell(x, y)->resource_index = 3;
 
@@ -101,12 +115,16 @@ int Game::Extract(int x, int y)
 		}
 	, x, y, 2);
 	Scan(x, y);
+	max_extract--;
 	return r;
 }
 
 void Game::Scan(int x, int y)
 {
+	if (max_scan == 0)
+		return;
 	RoundGrid([](int i, int j, Game* g)->void {g->GetGrid()->GetCell(i, j)->hidden = false; }, x, y, 1);
+	max_scan--;
 }
 
 void Game::Mix()

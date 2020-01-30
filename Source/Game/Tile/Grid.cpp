@@ -18,7 +18,7 @@ Grid::Grid(unsigned short w, unsigned short h)
 			tile[i][j].y = j;
 			tile[i][j].width = cell_width;
 			tile[i][j].height = cell_height;
-			tile[i][j].hidden = false;
+			tile[i][j].hidden = true;
 			tile[i][j].selected = false;
 		}
 	}
