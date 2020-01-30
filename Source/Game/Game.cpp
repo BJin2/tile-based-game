@@ -1,3 +1,4 @@
+#include <time.h>
 #include "Game.h"
 #include "Tile/Grid.h"
 #include "../Input/Input.h"
@@ -11,7 +12,9 @@ void Game::SetOwner(HWND _hWnd)
 
 void Game::Start()
 {
+	srand(time(NULL));
 	grid = new Grid(16, 16);
+	Mix();
 	Renderer::Instance()->SetGrid(grid);
 }
 
@@ -104,6 +107,26 @@ int Game::Extract(int x, int y)
 void Game::Scan(int x, int y)
 {
 	RoundGrid([](int i, int j, Game* g)->void {g->GetGrid()->GetCell(i, j)->hidden = false; }, x, y, 1);
+}
+
+void Game::Mix()
+{
+	for (int i = 0; i < max_num_maxResource; i++)
+	{
+		int random_x = (rand() % grid->GetWidth());
+		int random_y = (rand() % grid->GetHeight());
+		RoundGrid([](int i, int j, Game* g) 
+			{
+				if (g->GetGrid()->GetCell(i, j)->resource_index > 2)
+					g->GetGrid()->GetCell(i, j)->resource_index = 2;
+			}, random_x, random_y, 2);
+		RoundGrid([](int i, int j, Game* g)
+			{
+				if (g->GetGrid()->GetCell(i, j)->resource_index > 1)
+					g->GetGrid()->GetCell(i, j)->resource_index = 1;
+			}, random_x, random_y, 1);
+		grid->GetCell(random_x, random_y)->resource_index = 0;
+	}
 }
 
 void Game::RoundGrid(void(*passed)(int i, int j, Game* g), int x, int y, int thickness)

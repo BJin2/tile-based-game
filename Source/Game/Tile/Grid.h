@@ -34,8 +34,6 @@ public:
 
 	const unsigned short resource_amount[4] = {1024, 512, 256, 64};
 
-	void Mix();
-
 	inline unsigned short GetWidth() { return tile_width; }
 	inline unsigned short GetHeight() { return tile_height; }
 	inline Cell* GetCell(int x, int y) { return &(tile[x][y]); }
