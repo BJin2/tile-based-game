@@ -50,7 +50,7 @@ void Game::Update()
 
 		if (Input::GetMouseButtonDown(0))
 		{
-			grid->Scan(x, y, hWnd);
+			Scan(x, y);
 		}
 
 		//if it's different from previous selected cell index
@@ -84,4 +84,35 @@ void Game::Update()
 			InvalidateRect(hWnd, &redrawArea2, true);
 		}
 	}
+}
+
+int Game::Extract(int x, int y)
+{
+	return 0;
+}
+
+void Game::Scan(int x, int y)
+{
+	unsigned short start_x = (x <= 0 ? 0 : x - 1);
+	unsigned short end_x = (x < grid->GetWidth() - 1 ? x + 1 : grid->GetWidth() - 1);
+	unsigned short start_y = (y <= 0 ? 0 : y - 1);
+	unsigned short end_y = (y < grid->GetHeight() - 1 ? y + 1 : grid->GetHeight() - 1);
+
+	std::cout << start_x << ", " << end_x << std::endl;
+
+	for (unsigned short i = start_x; i <= end_x; i++)
+	{
+		for (unsigned short j = start_y; j <= end_y; j++)
+		{
+			std::cout << "Scan" << std::endl;
+			grid->GetCell(i,j)->hidden = false;
+		}
+	}
+	RECT redrawArea1;
+	SetRect(&redrawArea1,
+		start_x * grid->GetWidth(),
+		start_y * grid->GetHeight(),
+		(end_x + 1) * grid->GetWidth(),
+		(end_y + 1) * grid->GetHeight());
+	InvalidateRect(hWnd, &redrawArea1, true);
 }
