@@ -1,8 +1,8 @@
 #include "Game.h"
-#include "../Renderer/Renderer.h"
 #include "Tile/Grid.h"
-#include "../Debug/Debug.h"
 #include "../Input/Input.h"
+#include "../Renderer/Renderer.h"
+#include "../Debug/Debug.h"
 
 void Game::Start()
 {
@@ -12,12 +12,13 @@ void Game::Start()
 
 void Game::Update()
 {
-	if (Input::GetMouseButtonDown(KeyCode::Mouse0))
+	if (Input::GetMouseButtonDown(2))
 	{
+		Debug::Log("M");
 		//grid->GetCell(2, 2)->resource = 30;
 	}
-	if (Input::GetKeyDown(KeyCode::A))
+	if (Input::GetMouseButtonDown(0))
 	{
-		Debug::Log("A pressed");
+		std::cout << Input::GetMousePosition()->x << ", " << Input::GetMousePosition()->y << std::endl;
 	}
 }

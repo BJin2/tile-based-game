@@ -41,18 +41,45 @@ LRESULT RawInput::WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 	case WM_LBUTTONDOWN:
 		SetMouseData(_mData, hWnd, wParam, lParam);
 		_mData.button = KeyCode::Mouse0;
-		Debug::Log(_mData);
-		Input::KeyPressed(KeyCode::Mouse0);
+		//Debug::Log(_mData);
+		Input::MousePressed(KeyCode::Mouse0);
+		Input::MouseMoved(_mData.screenX, _mData.screenY);
 		//EventManager::Instance()->RegisterEvent(_mData.type, &_mData);
 		break;
 	case WM_LBUTTONUP:
-		Input::KeyReleased(KeyCode::Mouse0);
-		break;
-	case WM_RBUTTONUP:
-		Input::KeyReleased(KeyCode::Mouse1);
+		SetMouseData(_mData, hWnd, wParam, lParam);
+		_mData.button = KeyCode::Mouse0;
+		Input::MouseReleased(KeyCode::Mouse0);
+		Input::MouseMoved(_mData.screenX, _mData.screenY);
 		break;
 	case WM_RBUTTONDOWN:
-		Input::KeyPressed(KeyCode::Mouse1);
+		SetMouseData(_mData, hWnd, wParam, lParam);
+		_mData.button = KeyCode::Mouse1;
+		Input::MousePressed(KeyCode::Mouse1);
+		Input::MouseMoved(_mData.screenX, _mData.screenY);
+		break;
+	case WM_RBUTTONUP:
+		SetMouseData(_mData, hWnd, wParam, lParam);
+		_mData.button = KeyCode::Mouse1;
+		Input::MouseReleased(KeyCode::Mouse1);
+		Input::MouseMoved(_mData.screenX, _mData.screenY);
+		break;
+	case WM_MBUTTONDOWN:
+		SetMouseData(_mData, hWnd, wParam, lParam);
+		_mData.button = KeyCode::Mouse2;
+		Input::MousePressed(KeyCode::Mouse2);
+		Input::MouseMoved(_mData.screenX, _mData.screenY);
+		break;
+	case WM_MBUTTONUP:
+		SetMouseData(_mData, hWnd, wParam, lParam);
+		_mData.button = KeyCode::Mouse2;
+		Input::MouseReleased(KeyCode::Mouse2);
+		Input::MouseMoved(_mData.screenX, _mData.screenY);
+		break;
+	case WM_MOUSEMOVE:
+		SetMouseData(_mData, hWnd, wParam, lParam);
+		//_mData.button = KeyCode::Mouse0;
+		Input::MouseMoved(_mData.screenX, _mData.screenY);
 		break;
 	case WM_KEYDOWN:
 		SetKeyData(_kData, hWnd, wParam, lParam);
@@ -65,7 +92,6 @@ LRESULT RawInput::WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 		break;
 	case WM_PAINT:
 		hdc = BeginPaint(hWnd, &ps);
-		//std::cout << ps.rcPaint.bottom << std::endl;
 		Renderer::Instance()->Render(ps);
 		EndPaint(hWnd, &ps);
 		break;
