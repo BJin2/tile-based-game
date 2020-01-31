@@ -1,5 +1,7 @@
 #include <windowsx.h>
 #include "RawInput.h"
+#include "../Application.h"
+#include "../Game/Game.h"
 #include "Input.h"
 #include "../Renderer/Renderer.h"
 #include "../Event/EventManager.h"
@@ -8,6 +10,8 @@
 #include "../Event/KeyEvent.h"
 
 #include "../Debug/Debug.h"
+
+enum { COMMAND_SCAN_MODE = 101, COMMAND_EXTRACT_MODE, COMMAND_RESTART, COMMAND_QUIT };
 
 void SetKeyData(KeyEventData& _data, HWND hWnd, WPARAM wParam, LPARAM lParam)
 {
@@ -38,6 +42,23 @@ LRESULT RawInput::WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 	//will call event manager register
 	switch (msg)
 	{
+	case WM_CREATE:
+		CreateWindow(TEXT("button"), TEXT("Mode"), WS_CHILD | WS_VISIBLE | BS_GROUPBOX, 5, 256, 80, 70, hWnd, (HMENU)-1, Application::Instance()->GetHINSTANCE(), NULL);
+		Application::Instance()->SetRadioScan(CreateWindow(TEXT("button"), TEXT("Scan"), WS_CHILD | WS_VISIBLE | BS_AUTORADIOBUTTON | WS_GROUP, 10, 276, 70, 20, hWnd, (HMENU)COMMAND_SCAN_MODE, Application::Instance()->GetHINSTANCE(), NULL));
+		Application::Instance()->SetRadioExtract(CreateWindow(TEXT("button"), TEXT("Extract"), WS_CHILD | WS_VISIBLE | BS_AUTORADIOBUTTON, 10, 296, 70, 20, hWnd, (HMENU)COMMAND_EXTRACT_MODE, Application::Instance()->GetHINSTANCE(), NULL));
+		CheckRadioButton(hWnd, COMMAND_SCAN_MODE, COMMAND_EXTRACT_MODE, COMMAND_SCAN_MODE);
+		break;
+	case WM_COMMAND:
+		switch (LOWORD(wParam))
+		{
+		case COMMAND_SCAN_MODE:
+			Application::Instance()->GetGame()->ScanMode();
+			break;
+		case COMMAND_EXTRACT_MODE:
+			Application::Instance()->GetGame()->ExtractMode();
+			break;
+		}
+		break;
 	case WM_LBUTTONDOWN:
 		SetMouseData(_mData, hWnd, wParam, lParam);
 		_mData.button = KeyCode::Mouse0;

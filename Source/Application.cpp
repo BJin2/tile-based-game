@@ -8,8 +8,15 @@
 #include "Event/EventManager.h"
 #include "Event/KeyEvent.h"
 
+Application* Application::instance;
+Application* Application::Instance()
+{
+	return instance;
+}
+
 Application::Application(HINSTANCE _hInstance)
 {
+	instance = this;
 	hInstance = _hInstance;
 	hWnd = 0;
 	className = TEXT("");
@@ -25,7 +32,7 @@ bool Application::InitializeWindow()
 	//Set windows class
 	wc.cbClsExtra = 0;
 	wc.cbWndExtra = 0;
-	wc.hbrBackground = (HBRUSH)GetStockObject(WHITE_BRUSH);
+	wc.hbrBackground = (HBRUSH)(COLOR_BTNFACE + 1);
 	wc.hCursor = LoadCursor(NULL, IDC_ARROW);
 	wc.hIcon = LoadIcon(NULL, IDI_APPLICATION);
 	wc.hInstance = hInstance;
@@ -52,7 +59,7 @@ bool Application::CreateAppWindow(LPCWSTR title, int x, int y, int width, int he
 	//Create windows
 	RECT rc = { 0, 0, width, height };
 	AdjustWindowRect(&rc, WS_OVERLAPPEDWINDOW, NULL);
-	this->hWnd = CreateWindow(className, className, WS_OVERLAPPEDWINDOW | WS_SYSMENU | WS_MINIMIZEBOX, x, y, rc.right - rc.left, rc.bottom - rc.top, NULL, (HMENU)NULL, hInstance, NULL);
+	this->hWnd = CreateWindow(className, className, WS_OVERLAPPED | WS_SYSMENU | WS_MINIMIZEBOX, x, y, rc.right - rc.left, rc.bottom - rc.top, NULL, (HMENU)NULL, hInstance, NULL);
 	if (!this->hWnd)
 		return false;
 
@@ -84,4 +91,14 @@ WPARAM Application::Run()
 	}
 
 	return msg.wParam;
+}
+
+void Application::SetRadioScan(HWND _hWnd)
+{
+	radio_scan = _hWnd;
+}
+
+void Application::SetRadioExtract(HWND _hWnd)
+{
+	radio_extract = _hWnd;
 }
