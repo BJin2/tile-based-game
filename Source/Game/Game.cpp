@@ -31,6 +31,8 @@ void Game::Start()
 	//Init renderer properties
 	Renderer::Instance()->SetGrid(grid);
 	UpdateText();
+
+	CheckRadioButton(hWnd, COMMAND_SCAN_MODE, COMMAND_EXTRACT_MODE, COMMAND_SCAN_MODE);
 	InvalidateRect(hWnd, NULL, true);
 }
 
@@ -111,6 +113,21 @@ void Game::Update()
 			InvalidateRect(hWnd, &redrawArea2, true);
 		}
 	}
+
+	//Check game end condition at the end of the game loop
+	if (max_extract == 0)
+	{
+		LPWSTR temp = new TCHAR[1024];
+		wsprintf(temp, TEXT("You got : %d\nThank you for playing.\nDo you want to play again?"), resource);
+		if (MessageBox(hWnd, temp, TEXT("Game Finished"), MB_YESNO) == IDYES)
+		{
+			Start();
+		}
+		else
+		{
+			PostQuitMessage(0);
+		}
+	}
 }
 
 void Game::ScanMode()
@@ -150,15 +167,6 @@ int Game::Extract(int x, int y)
 	max_scan++;
 	Scan(x, y);
 	max_extract--;
-	if (max_extract == 0)
-	{
-		LPWSTR temp = new TCHAR[1024];
-		wsprintf(temp, TEXT("You got : %d\nClosing the game.\nThank you for playing."), resource);
-		if (MessageBox(hWnd, temp, TEXT("Game Finished"), MB_OK) == IDOK)
-		{
-			PostQuitMessage(0);
-		}
-	}
 	return r;
 }
 

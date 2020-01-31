@@ -11,8 +11,6 @@
 
 #include "../Debug/Debug.h"
 
-enum { COMMAND_SCAN_MODE = 101, COMMAND_EXTRACT_MODE, COMMAND_RESTART, COMMAND_QUIT };
-
 void SetKeyData(KeyEventData& _data, HWND hWnd, WPARAM wParam, LPARAM lParam)
 {
 	_data.hWnd = hWnd;
@@ -49,7 +47,6 @@ LRESULT RawInput::WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 		CreateWindow(TEXT("button"), TEXT("Message"), WS_CHILD | WS_VISIBLE | BS_GROUPBOX, 3, 325, 250, 56, hWnd, (HMENU)-1, Application::Instance()->GetHINSTANCE(), NULL);
 		Application::Instance()->SetRadioScan(CreateWindow(TEXT("button"), TEXT("Scan"), WS_CHILD | WS_VISIBLE | BS_AUTORADIOBUTTON | WS_GROUP, 10, 276, 70, 20, hWnd, (HMENU)COMMAND_SCAN_MODE, Application::Instance()->GetHINSTANCE(), NULL));
 		Application::Instance()->SetRadioExtract(CreateWindow(TEXT("button"), TEXT("Extract"), WS_CHILD | WS_VISIBLE | BS_AUTORADIOBUTTON, 10, 296, 70, 20, hWnd, (HMENU)COMMAND_EXTRACT_MODE, Application::Instance()->GetHINSTANCE(), NULL));
-		CheckRadioButton(hWnd, COMMAND_SCAN_MODE, COMMAND_EXTRACT_MODE, COMMAND_SCAN_MODE);
 		break;
 	case WM_COMMAND:
 		switch (LOWORD(wParam))
