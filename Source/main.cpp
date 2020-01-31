@@ -28,7 +28,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpszCmd
 	UNREFERENCED_PARAMETER(lpszCmdParam);
 
 	Application app(hInstance);
-	if (!app.CreateAppWindow(title, CW_USEDEFAULT, CW_USEDEFAULT, 256, 256))
+	if (!app.CreateAppWindow(title, CW_USEDEFAULT, CW_USEDEFAULT, 256, 256 + 128))
 	{
 		MessageBox(app.GetHWND(), TEXT("Creating window failed"), TEXT("Window Error"), 0);
 		return -1;
