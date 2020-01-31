@@ -87,7 +87,6 @@ WPARAM Application::Run()
 		TranslateMessage(&msg);
 		DispatchMessage(&msg);
 		game->Update();
-		//InvalidateRect(hWnd, NULL, FALSE);
 	}
 
 	return msg.wParam;

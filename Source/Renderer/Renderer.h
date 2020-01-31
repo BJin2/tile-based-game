@@ -18,5 +18,6 @@ private :
 public :
 	static Renderer* Instance();
 	void SetGrid(Grid* _grid);
-	void Render(const PAINTSTRUCT& ps);
+	void RenderGrid(const PAINTSTRUCT& ps);
+	void RenderText(const PAINTSTRUCT& ps);
 };
