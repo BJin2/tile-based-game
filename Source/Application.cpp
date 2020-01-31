@@ -8,15 +8,21 @@
 #include "Event/EventManager.h"
 #include "Event/KeyEvent.h"
 
+Application* Application::instance;
+Application* Application::Instance()
+{
+	return instance;
+}
+
 Application::Application(HINSTANCE _hInstance)
 {
+	instance = this;
 	hInstance = _hInstance;
 	hWnd = 0;
 	className = TEXT("");
 	msg = MSG();
 	mapper = new EventMapper();
 	game = new Game();
-	game->Start();
 }
 
 bool Application::InitializeWindow()
@@ -26,7 +32,7 @@ bool Application::InitializeWindow()
 	//Set windows class
 	wc.cbClsExtra = 0;
 	wc.cbWndExtra = 0;
-	wc.hbrBackground = (HBRUSH)GetStockObject(WHITE_BRUSH);
+	wc.hbrBackground = (HBRUSH)(COLOR_BTNFACE + 1);
 	wc.hCursor = LoadCursor(NULL, IDC_ARROW);
 	wc.hIcon = LoadIcon(NULL, IDI_APPLICATION);
 	wc.hInstance = hInstance;
@@ -74,15 +80,24 @@ bool Application::CreateAppWindow(LPCWSTR title, int x, int y, int width, int he
 WPARAM Application::Run()
 {
 	game->SetOwner(hWnd);
-//	game->Start();
+	game->Start();
 	while (GetMessage(&msg, NULL, 0, 0))
 	{
 		Input::NextFrame();
 		TranslateMessage(&msg);
 		DispatchMessage(&msg);
 		game->Update();
-		//InvalidateRect(hWnd, NULL, FALSE);
 	}
 
 	return msg.wParam;
+}
+
+void Application::SetRadioScan(HWND _hWnd)
+{
+	radio_scan = _hWnd;
+}
+
+void Application::SetRadioExtract(HWND _hWnd)
+{
+	radio_extract = _hWnd;
 }

@@ -12,7 +12,7 @@ int main()
 	HINSTANCE hInstance = GetModuleHandle(nullptr);
 	Application app(hInstance);
 	Debug::Log("Initializing window");
-	if (!app.CreateAppWindow(title, CW_USEDEFAULT, CW_USEDEFAULT, 256, 256))
+	if (!app.CreateAppWindow(title, CW_USEDEFAULT, CW_USEDEFAULT, 256, 256+128))
 	{
 		MessageBox(app.GetHWND(), TEXT("Creating window failed"), TEXT("Window Error"), 0);
 		return -1;

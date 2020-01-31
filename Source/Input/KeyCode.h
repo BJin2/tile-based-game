@@ -1,4 +1,5 @@
 #pragma once
+enum { COMMAND_SCAN_MODE = 101, COMMAND_EXTRACT_MODE, COMMAND_RESTART, COMMAND_QUIT };
 enum class KeyCode : __int8
 {
 	NO_CODE = 0x00,

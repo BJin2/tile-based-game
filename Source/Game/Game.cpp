@@ -1,4 +1,5 @@
 #include <time.h>
+#include <tchar.h>  
 #include "Game.h"
 #include "Tile/Grid.h"
 #include "../Input/Input.h"
@@ -12,13 +13,27 @@ void Game::SetOwner(HWND _hWnd)
 
 void Game::Start()
 {
-	srand(time(NULL));
-	grid = new Grid(16, 16);
+	//Create tile
+	grid = new Grid(16, 16, this);
 	Mix();
-	Renderer::Instance()->SetGrid(grid);
+
+	//Init
+	srand(time(NULL));
 	scanMode = true;
+	resource = 0;
 	max_scan = 6;
 	max_extract = 3;
+
+	text_chance = new TCHAR[1024];
+	text_resource = new TCHAR[1024];
+	text_message = new TCHAR[1024];
+
+	//Init renderer properties
+	Renderer::Instance()->SetGrid(grid);
+	UpdateText();
+
+	CheckRadioButton(hWnd, COMMAND_SCAN_MODE, COMMAND_EXTRACT_MODE, COMMAND_SCAN_MODE);
+	InvalidateRect(hWnd, NULL, true);
 }
 
 void Game::Update()
@@ -57,13 +72,14 @@ void Game::Update()
 		//Calculate cell index based on mouse position
 		int x = mousePos.x / grid->GetWidth();
 		int y = mousePos.y / grid->GetHeight();
-
+		
 		if (Input::GetMouseButtonDown(0))
 		{
 			if (scanMode)
 				Scan(x, y);
 			else
 				resource += Extract(x, y);
+			UpdateText();
 		}
 
 		//if it's different from previous selected cell index
@@ -97,23 +113,58 @@ void Game::Update()
 			InvalidateRect(hWnd, &redrawArea2, true);
 		}
 	}
+
+	//Check game end condition at the end of the game loop
+	if (max_extract == 0)
+	{
+		LPWSTR temp = new TCHAR[1024];
+		wsprintf(temp, TEXT("You got : %d\nThank you for playing.\nDo you want to play again?"), resource);
+		if (MessageBox(hWnd, temp, TEXT("Game Finished"), MB_YESNO) == IDYES)
+		{
+			Start();
+		}
+		else
+		{
+			PostQuitMessage(0);
+		}
+	}
 }
 
+void Game::ScanMode()
+{
+	scanMode = true;
+	UpdateText();
+}
+
+void Game::ExtractMode()
+{
+	scanMode = false;
+	UpdateText();
+}
+
+
+#pragma region Grid
 int Game::Extract(int x, int y)
 {
 	if (max_extract == 0)
+	{
+		MessageBeep(MB_OK);
 		return 0;
+	}
 
 	int r = grid->resource_amount[grid->GetCell(x, y)->resource_index];
 	grid->GetCell(x, y)->resource_index = 3;
 
-	RoundGrid([](int i, int j, Game* g)->void 
+	RoundGrid([](int i, int j, Game* g)->void
 		{
 			Cell* cell = g->GetGrid()->GetCell(i, j);
-			if(cell->resource_index < 3)
+			if (cell->resource_index < 3)
 				cell->resource_index += 1;
 		}
 	, x, y, 2);
+	//number of scan should not change when extracting
+	//adding 1 before scanning in extract mode so that total number does not change
+	max_scan++;
 	Scan(x, y);
 	max_extract--;
 	return r;
@@ -122,7 +173,10 @@ int Game::Extract(int x, int y)
 void Game::Scan(int x, int y)
 {
 	if (max_scan == 0)
+	{
+		MessageBeep(MB_OK);
 		return;
+	}
 	RoundGrid([](int i, int j, Game* g)->void {g->GetGrid()->GetCell(i, j)->hidden = false; }, x, y, 1);
 	max_scan--;
 }
@@ -133,7 +187,7 @@ void Game::Mix()
 	{
 		int random_x = (rand() % grid->GetWidth());
 		int random_y = (rand() % grid->GetHeight());
-		RoundGrid([](int i, int j, Game* g) 
+		RoundGrid([](int i, int j, Game* g)
 			{
 				if (g->GetGrid()->GetCell(i, j)->resource_index > 2)
 					g->GetGrid()->GetCell(i, j)->resource_index = 2;
@@ -149,12 +203,10 @@ void Game::Mix()
 
 void Game::RoundGrid(void(*passed)(int i, int j, Game* g), int x, int y, int thickness)
 {
-	unsigned short start_x = (x-thickness < 0 ? 0 : x - thickness);
-	unsigned short end_x = (x + thickness >= grid->GetWidth() ? grid->GetWidth()-1 : x + thickness);
-	unsigned short start_y = (y-thickness < 0 ? 0 : y - thickness);
+	unsigned short start_x = (x - thickness < 0 ? 0 : x - thickness);
+	unsigned short end_x = (x + thickness >= grid->GetWidth() ? grid->GetWidth() - 1 : x + thickness);
+	unsigned short start_y = (y - thickness < 0 ? 0 : y - thickness);
 	unsigned short end_y = (y + thickness >= grid->GetHeight() ? grid->GetHeight() - 1 : y + thickness);
-
-	std::cout << start_x << ", " << end_x << std::endl;
 
 	for (unsigned short i = start_x; i <= end_x; i++)
 	{
@@ -171,3 +223,57 @@ void Game::RoundGrid(void(*passed)(int i, int j, Game* g), int x, int y, int thi
 		(end_y + 1) * grid->GetHeight());
 	InvalidateRect(hWnd, &redrawArea, true);
 }
+#pragma endregion
+
+#pragma region Text
+void Game::UpdateText()
+{
+	wsprintf(text_resource, TEXT("Rsrc:%d"), resource);
+	if (scanMode)
+	{
+		wsprintf(text_chance, TEXT("Scan:%d"), max_scan);
+		if (max_scan > 0)
+			wsprintf(text_message, TEXT("Click on a cell and scan the area."));
+		else
+			wsprintf(text_message, TEXT("You cannot scan any more."));
+	}
+	else
+	{
+		wsprintf(text_chance, TEXT("Extract:%d"), max_extract);
+		if (max_extract > 0)
+			wsprintf(text_message, TEXT("Click on a cell and get the resource."));
+		else
+			wsprintf(text_message, TEXT("You cannot extract any more."));
+	}
+
+	InvalidateRect(hWnd, &rect_text, true);
+}
+
+LPWSTR Game::GetChanceText()
+{
+	return text_chance;
+}
+int Game::GetChanceTextLength()
+{
+	return lstrlen(text_chance);
+}
+
+LPWSTR Game::GetResourceText()
+{
+	return text_resource;
+}
+int Game::GetResourceTextLength()
+{
+	return lstrlen(text_resource);
+}
+
+LPWSTR Game::GetMessageText()
+{
+	return text_message;
+}
+int Game::GetMessageTextLength()
+{
+	return lstrlen(text_message);
+}
+#pragma endregion
+

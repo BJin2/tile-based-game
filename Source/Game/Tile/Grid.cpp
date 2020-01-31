@@ -1,9 +1,12 @@
 #include"Grid.h"
+#include "../Game.h"
 #include <Windows.h>
 #include <iostream>
 
-Grid::Grid(unsigned short w, unsigned short h)
+Grid::Grid(unsigned short w, unsigned short h, Game* _owner)
 {
+	owner = _owner;
+
 	tile_width = w;
 	tile_height = h;
 

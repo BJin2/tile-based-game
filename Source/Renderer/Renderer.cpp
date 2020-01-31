@@ -1,4 +1,5 @@
 #include "Renderer.h"
+#include "../Game/Game.h"
 #include "../Game/Tile/Grid.h"
 
 #include "../Debug/Debug.h"
@@ -37,19 +38,27 @@ void Renderer::SetGrid(Grid* _grid)
 	instance->grid = _grid;
 }
 
-void Renderer::Render(const PAINTSTRUCT& ps)
+void Renderer::RenderGrid(const PAINTSTRUCT& ps)
 {
-	Debug::Log("Rendering");
+	if (!grid)
+		return;
+	unsigned short max_width = (grid->cell_width * grid->GetWidth());
+	unsigned short max_height = (grid->cell_height * grid->GetHeight());
+	RECT rect_tile = {
+		(ps.rcPaint.left < 0)? 0 : ps.rcPaint.left, 
+		(ps.rcPaint.top < 0)? 0 : ps.rcPaint.top, 
+		(ps.rcPaint.right > max_width)? max_width : ps.rcPaint.right, 
+		(ps.rcPaint.bottom > max_height)? max_height : ps.rcPaint.bottom};
 	
-	int numCell_x = (ps.rcPaint.right - ps.rcPaint.left) / grid->cell_width;
-	int numCell_y = (ps.rcPaint.bottom - ps.rcPaint.top) / grid->cell_height;
+	int numCell_x = (rect_tile.right/ grid->cell_width) - (rect_tile.left / grid->cell_width);
+	int numCell_y = (rect_tile.bottom/ grid->cell_height) - (rect_tile.top / grid->cell_height);
 
-	int start_x = ps.rcPaint.left / grid->cell_width;
-	int start_y = ps.rcPaint.top / grid->cell_height;
+	int start_x = rect_tile.left / grid->cell_width;
+	int start_y = rect_tile.top / grid->cell_height;
 
-	for (int i = start_x; i < start_x + numCell_x; i++)
+	for (int i = 0; i < grid->GetWidth(); i++)
 	{
-		for (int j = start_y; j < start_y + numCell_y; j++)
+		for (int j = 0; j < grid->GetHeight(); j++)
 		{
 			Cell* cur = grid->GetCell(i, j);
 
@@ -68,4 +77,15 @@ void Renderer::Render(const PAINTSTRUCT& ps)
 		}
 	}
 	SelectObject(ps.hdc, br_default);
+}
+
+void Renderer::RenderText(const PAINTSTRUCT& ps)
+{
+	if (!grid)
+		return;
+	Game* game = grid->GetOwner();
+	SetBkColor(ps.hdc, RGB(240, 240, 240));
+	TextOut(ps.hdc, 97, 285, game->GetChanceText(), game->GetChanceTextLength());
+	TextOut(ps.hdc, 183, 285, game->GetResourceText(), game->GetResourceTextLength());
+	TextOut(ps.hdc, 10, 348, game->GetMessageText(), game->GetMessageTextLength());
 }

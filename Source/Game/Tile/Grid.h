@@ -15,17 +15,20 @@ struct Cell
 	char pad;
 };
 
+class Game;
+
 class Grid
 {
 private:
 	Cell** tile;
+	Game* owner;
 
 	//size of the tile
 	unsigned short tile_width;
 	unsigned short tile_height;
 
 public:
-	Grid(unsigned short w, unsigned short h);
+	Grid(unsigned short w, unsigned short h, Game* _owner);
 	~Grid();
 
 	//actual pixel size of a cell
@@ -37,4 +40,5 @@ public:
 	inline unsigned short GetWidth() { return tile_width; }
 	inline unsigned short GetHeight() { return tile_height; }
 	inline Cell* GetCell(int x, int y) { return &(tile[x][y]); }
+	inline Game* GetOwner() { return owner; }
 };
